@@ -107,6 +107,8 @@
     const img = $("#hero-image");
     img.src = data.images.hero.src;
     img.alt = data.images.hero.alt;
+    const heroScript = $("#hero-script");
+    if (heroScript) heroScript.textContent = data.invite.heroScript || "";
     $("#hero-venue").textContent = data.ceremony.verticalVenue;
     $("#hero-date").textContent = data.ceremony.verticalDate;
     $("#hero-names").innerHTML = `
@@ -122,6 +124,10 @@
     $("#invite-body").innerHTML = data.invite.paragraphs
       .map((p) => `<p>${p}</p>`)
       .join("");
+    const closing = $("#invite-script");
+    if (closing) closing.textContent = data.invite.closingScript || "";
+    const tape = $("#invite-tape");
+    if (tape) tape.textContent = data.invite.tapeLabel || "Kaunas 2019";
   }
 
   function renderParents() {
@@ -342,19 +348,32 @@
     $("#location-address").innerHTML = c.addressLines.map((line) => `${line}<br />`).join("");
     renderKakaoMap();
 
+    const iconBus = `<span class="transit__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M4 11h16M8 20h1M15 20h1M7 17v3M17 17v3"/></svg></span>`;
+    const iconSubway = `<span class="transit__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="12" rx="2"/><path d="M8 15l-2 5M16 15l2 5M9 8h6M8 11h8"/></svg></span>`;
+    const iconCar = `<span class="transit__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 16l1.5-5.5A2 2 0 0 1 8.4 9h7.2a2 2 0 0 1 1.9 1.5L19 16"/><path d="M5 16h14v2a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-2z"/><circle cx="8" cy="16" r="1"/><circle cx="16" cy="16" r="1"/></svg></span>`;
+
     $("#location-transit").innerHTML = `
       <article class="transit">
-        <h3>${t.bus.title}</h3>
-        ${t.bus.lines.map((line) => `<p>${line}</p>`).join("")}
-        <p class="transit__note">${t.bus.note}</p>
+        ${iconBus}
+        <div class="transit__body">
+          <h3>${t.bus.title}</h3>
+          ${t.bus.lines.map((line) => `<p>${line}</p>`).join("")}
+          <p class="transit__note">${t.bus.note}</p>
+        </div>
       </article>
       <article class="transit">
-        <h3>${t.subway.title}</h3>
-        <p>${t.subway.note}</p>
+        ${iconSubway}
+        <div class="transit__body">
+          <h3>${t.subway.title}</h3>
+          <p>${t.subway.note}</p>
+        </div>
       </article>
       <article class="transit">
-        <h3>${t.car.title}</h3>
-        ${t.car.notes.map((n) => `<p>${n}</p>`).join("")}
+        ${iconCar}
+        <div class="transit__body">
+          <h3>${t.car.title}</h3>
+          ${t.car.notes.map((n) => `<p>${n}</p>`).join("")}
+        </div>
       </article>
     `;
 
