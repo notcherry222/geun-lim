@@ -301,57 +301,6 @@ textarea {
   opacity: 0.92;
 }
 
-.timeline__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  border-left: 1px solid var(--line);
-}
-
-.timeline__item {
-  position: relative;
-  padding: 0 0 1.6rem 1.2rem;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.55s ease, transform 0.55s ease;
-}
-
-.timeline__item::before {
-  content: "";
-  position: absolute;
-  left: -4px;
-  top: 0.35rem;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 4px rgba(47, 93, 74, 0.12);
-}
-
-.timeline__item:last-child {
-  padding-bottom: 0;
-}
-
-.timeline__date {
-  margin: 0 0 0.2rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  color: var(--accent-soft);
-}
-
-.timeline__item h3 {
-  margin: 0 0 0.25rem;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.timeline__item p {
-  margin: 0;
-  color: var(--ink-soft);
-  font-size: 0.92rem;
-  font-weight: 300;
-}
-
 .gallery__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

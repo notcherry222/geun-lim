@@ -71,9 +71,7 @@
   }
 
   function formatParentLine(side) {
-    const father = side.father.deceased ? `故 ${side.father.name}` : side.father.name;
-    const mother = side.mother.deceased ? `故 ${side.mother.name}` : side.mother.name;
-    return `${father} · ${mother} 의 ${side.relation} ${side.childName}`;
+    return `아버지 ${side.father.name} · 어머니 ${side.mother.name} 의 ${side.relation} ${side.childName}`;
   }
 
   function buildCalendar(dateISO) {
@@ -139,11 +137,10 @@
         { label: "어머니", person: side.mother },
       ]
         .map(({ label, person }) => {
-          const name = person.deceased ? `故 ${person.name}` : person.name;
           const phone = person.phone
             ? `<a class="parents__phone" href="tel:${person.phone}">${person.phone}</a>`
             : `<span class="parents__phone is-empty">연락처 미등록</span>`;
-          return `<div class="parents__row"><span>${label}</span><strong>${name}</strong>${phone}</div>`;
+          return `<div class="parents__row"><span>${label}</span><strong>${person.name}</strong>${phone}</div>`;
         })
         .join("");
       return `<div class="parents__side"><h3>${side.label}</h3>${rows}</div>`;
@@ -157,22 +154,6 @@
     $("#ceremony-venue").textContent =
       `${data.ceremony.venueName} ${data.ceremony.venueHall}`;
     $("#calendar").innerHTML = buildCalendar(data.ceremony.dateISO);
-  }
-
-  function renderTimeline() {
-    $("#timeline-heading").textContent = data.timeline.heading;
-    $("#timeline-list").innerHTML = data.timeline.items
-      .map(
-        (item) => `
-        <li class="timeline__item reveal">
-          <p class="timeline__date">${item.date}</p>
-          <div>
-            <h3>${item.title}</h3>
-            <p>${item.text}</p>
-          </div>
-        </li>`
-      )
-      .join("");
   }
 
   function getVisibleGallery() {
@@ -358,7 +339,6 @@
     renderInvite();
     renderParents();
     renderCeremony();
-    renderTimeline();
     renderGallery();
     renderLocation();
     renderAccounts();
