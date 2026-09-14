@@ -10,7 +10,7 @@ window.WEDDING_DATA = {
   },
 
   couple: {
-    groom: { ko: "박건", en: "Gun" },
+    groom: { ko: "박건", en: "Geun" },
     bride: { ko: "김채림", en: "Chaelim" },
   },
 
@@ -89,11 +89,22 @@ window.WEDDING_DATA = {
     },
     mapLinks: {
       tmap: "https://www.tmap.co.kr/tmap2/mobile/tmap.jsp?name=%EC%8B%A0%EB%A6%BC%20%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%8A%A4%20%ED%8C%8C%ED%8B%B0&lon=126.9296&lat=37.4842",
-      kakao: "https://map.kakao.com/link/search/신림 그레이스 파티",
+      kakao: "https://map.kakao.com/link/map/%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%8A%A4%ED%8C%8C%ED%8B%B0%20%EA%B4%80%EC%95%85%EB%B3%B8%EC%A0%90,37.4842,126.9296",
       naver: "https://map.naver.com/v5/search/%EC%8B%A0%EB%A6%BC%20%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%8A%A4%20%ED%8C%8C%ED%8B%B0",
     },
-    /** 네이버 지도 검색 embed (API 키 없이 검색 페이지 링크 사용) */
-    mapEmbedQuery: "신림 그레이스 파티",
+    /** 카카오 지도 (정적 지도 + 선택적 JS SDK) */
+    kakaoMap: {
+      lat: 37.4842,
+      lng: 126.9296,
+      /** WCONGNAMUL 좌표 (카카오 정적 지도용) */
+      wcong: { x: 484435, y: 1106882 },
+      level: 3,
+      height: 280,
+      static: { width: 640, height: 320, scale: 2 },
+      /** 인터랙티브 지도: Kakao Developers JavaScript 키 입력 시 활성화 */
+      appKey: "",
+      markerTitle: "신림 그레이스 파티",
+    },
   },
 
   accounts: {

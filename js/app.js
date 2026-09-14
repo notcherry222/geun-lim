@@ -219,13 +219,98 @@
     $("#lightbox-image").alt = item.alt;
   }
 
+  function buildKakaoStaticMapUrl(mapConfig) {
+    const { wcong, static: size } = mapConfig;
+    const params = new URLSearchParams({
+      FORMAT: "PNG",
+      SCALE: String(size.scale),
+      MX: String(wcong.x),
+      MY: String(wcong.y),
+      S: "0",
+      IW: String(size.width),
+      IH: String(size.height),
+      LANG: "0",
+      COORDSTM: "WCONGNAMUL",
+      logo: "kakao_logo",
+    });
+    return `https://staticmap.kakao.com/map/mapservice?${params.toString()}`;
+  }
+
+  function renderKakaoStaticMap(container, mapConfig, mapLink) {
+    const src = buildKakaoStaticMapUrl(mapConfig);
+    container.innerHTML = `
+      <a
+        class="location__map-link-wrap"
+        href="${mapLink}"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="카카오맵에서 크게 보기"
+      >
+        <img
+          class="location__map-image"
+          src="${src}"
+          alt="${mapConfig.markerTitle} 위치"
+          loading="lazy"
+        />
+      </a>`;
+  }
+
+  function renderKakaoInteractiveMap(container, mapConfig) {
+    container.innerHTML = `<div id="kakao-map-canvas" class="location__map-canvas" role="img" aria-label="${mapConfig.markerTitle}"></div>`;
+
+    const renderMap = () => {
+      if (!window.kakao || !window.kakao.maps) return;
+      const center = new window.kakao.maps.LatLng(mapConfig.lat, mapConfig.lng);
+      const map = new window.kakao.maps.Map($("#kakao-map-canvas"), {
+        center,
+        level: mapConfig.level,
+      });
+      const marker = new window.kakao.maps.Marker({
+        map,
+        position: center,
+      });
+      const info = new window.kakao.maps.InfoWindow({
+        content: `<div style="padding:6px 8px;font-size:12px;">${mapConfig.markerTitle}</div>`,
+      });
+      info.open(map, marker);
+    };
+
+    if (window.kakao && window.kakao.maps) {
+      window.kakao.maps.load(renderMap);
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${mapConfig.appKey}&autoload=false`;
+    script.onload = () => {
+      window.kakao.maps.load(renderMap);
+    };
+    script.onerror = () => {
+      renderKakaoStaticMap(container, mapConfig, data.transport.mapLinks.kakao);
+    };
+    document.head.appendChild(script);
+  }
+
+  function renderKakaoMap() {
+    const mapConfig = data.transport.kakaoMap;
+    const container = $("#location-map");
+    if (!mapConfig || !container) return;
+
+    if (mapConfig.appKey) {
+      renderKakaoInteractiveMap(container, mapConfig);
+      return;
+    }
+
+    renderKakaoStaticMap(container, mapConfig, data.transport.mapLinks.kakao);
+  }
+
   function renderLocation() {
     const c = data.ceremony;
     const t = data.transport;
     $("#location-name").textContent = c.venueName;
     $("#location-hall").textContent = c.venueHall;
     $("#location-address").innerHTML = c.addressLines.map((line) => `${line}<br />`).join("");
-    $("#location-map-link").href = t.mapLinks.naver;
+    renderKakaoMap();
 
     $("#location-transit").innerHTML = `
       <article class="transit">
