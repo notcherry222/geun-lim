@@ -799,12 +799,13 @@ textarea {
 .lightbox__image {
   position: relative;
   z-index: 1;
-  width: min(92vw, var(--max));
-  max-height: 78dvh;
+  width: auto;
+  max-width: min(96vw, 920px);
+  max-height: min(88dvh, 100%);
+  height: auto;
   object-fit: contain;
   border-radius: 4px;
   box-shadow: var(--shadow);
-  filter: saturate(0.78) contrast(0.94) brightness(1.02) sepia(0.16);
 }
 
 .lightbox__close,
