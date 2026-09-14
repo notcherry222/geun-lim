@@ -93,8 +93,8 @@ window.WEDDING_DATA = {
     },
     brideSide: {
       label: "신부측",
-      father: { name: "김제찬", deceased: true, phone: "" },
-      mother: { name: "이현순", deceased: true, phone: "" },
+      father: { name: "김제찬", deceased: true, phone: "010-2239-4819" },
+      mother: { name: "이현순", deceased: true, phone: "010-9061-4815" },
       relation: "장녀",
       childName: "김채림",
     },

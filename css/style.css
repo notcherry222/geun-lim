@@ -1,8 +1,8 @@
 /* Mobile-first wedding card — Pinterest soft editorial */
 
 :root {
-  --bg: #f6f2ec;
-  --bg-wash: #efe9e1;
+  --bg: #fff6f4;
+  --bg-wash: #f8d4dc;
   --ink: #2c2a27;
   --ink-soft: #6b6660;
   --line: rgba(44, 42, 39, 0.12);
@@ -10,7 +10,7 @@
   --accent: #4a4540;
   --accent-soft: #8a837a;
   --paper: #fffcf8;
-  --paper-mute: #f3eee7;
+  --paper-mute: #f8efe8;
   --hero-ink: #faf7f2;
   --shadow: 0 12px 32px rgba(44, 42, 39, 0.08);
   --shadow-soft: 0 4px 18px rgba(44, 42, 39, 0.06);
@@ -21,6 +21,11 @@
   --font-script: "Great Vibes", "Segoe Script", cursive;
   --font-body: "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
   --max: 440px;
+  --sunset:
+    radial-gradient(120% 70% at 50% -8%, #ffd6a8 0%, transparent 52%),
+    radial-gradient(90% 55% at 100% 20%, rgba(255, 186, 210, 0.75) 0%, transparent 55%),
+    radial-gradient(80% 50% at 0% 30%, rgba(186, 214, 255, 0.55) 0%, transparent 50%),
+    linear-gradient(180deg, #f7c4d4 0%, #f8d9c8 38%, #e8eef8 78%, #f4e8f0 100%);
 }
 
 *,
@@ -38,7 +43,8 @@ body {
   font-family: var(--font-body);
   font-weight: 300;
   color: var(--ink);
-  background: var(--bg-wash);
+  background: var(--sunset);
+  background-attachment: fixed;
   line-height: 1.75;
   letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
@@ -63,7 +69,7 @@ textarea {
   width: min(100%, var(--max));
   margin: 0 auto;
   min-height: 100dvh;
-  background: var(--bg);
+  background: linear-gradient(180deg, rgba(255, 248, 246, 0.92) 0%, rgba(255, 252, 250, 0.96) 100%);
   box-shadow: var(--shadow-soft);
 }
 
@@ -907,15 +913,14 @@ textarea {
 
 @media (min-width: 720px) {
   body {
-    background:
-      radial-gradient(ellipse at 50% 0%, #f3ece3 0%, transparent 55%),
-      linear-gradient(180deg, #ebe4db 0%, #e5ddd3 100%);
+    background: var(--sunset);
+    background-attachment: fixed;
     padding: 2rem 0;
   }
 
   #app {
     border-radius: 4px;
     overflow: hidden;
-    box-shadow: 0 24px 60px rgba(44, 42, 39, 0.12);
+    box-shadow: 0 24px 60px rgba(180, 100, 120, 0.18);
   }
 }
