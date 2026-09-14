@@ -1,0 +1,13 @@
+{
+  "name": "mobile-w-card",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Mobile wedding invitation (static HTML/CSS/JS)",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "serve": "node server.js"
+  }
+}

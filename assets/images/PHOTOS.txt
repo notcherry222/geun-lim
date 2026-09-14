@@ -1,0 +1,8 @@
+사진 교체 방법
+1) 이 폴더에 jpg/png/webp 파일을 넣습니다.
+2) js/data.js 의 images.hero.src / images.gallery[].src 경로를 새 파일명으로 바꿉니다.
+예) src: "assets/images/hero.jpg"
+
+권장 비율
+- hero: 세로 3:4 ~ 9:16
+- gallery: 세로 3:4

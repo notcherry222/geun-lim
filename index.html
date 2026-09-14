@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#1a2420" />
+    <title>건, 채림 결혼합니다🩷</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Noto+Sans+KR:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <main id="app">
+      <!-- Hero -->
+      <section class="hero" id="hero" aria-label="메인">
+        <div class="hero__media">
+          <img id="hero-image" class="hero__image" src="" alt="" />
+          <div class="hero__shade" aria-hidden="true"></div>
+        </div>
+        <p class="hero__vertical hero__vertical--venue" id="hero-venue"></p>
+        <p class="hero__vertical hero__vertical--date" id="hero-date"></p>
+        <div class="hero__center">
+          <p class="hero__names" id="hero-names"></p>
+          <p class="hero__hint">스크롤</p>
+          <span class="hero__hint-line" aria-hidden="true"></span>
+        </div>
+      </section>
+
+      <!-- Invite -->
+      <section class="section invite" id="invite">
+        <h2 class="section__title" id="invite-heading"></h2>
+        <p class="invite__eyebrow" id="invite-eyebrow"></p>
+        <div class="invite__body" id="invite-body"></div>
+      </section>
+
+      <!-- Parents -->
+      <section class="section parents" id="parents">
+        <div id="parents-block"></div>
+        <button type="button" class="btn btn--ghost" id="btn-contact-parents">
+          혼주에게 연락하기
+        </button>
+      </section>
+
+      <!-- Ceremony -->
+      <section class="section ceremony" id="ceremony">
+        <h2 class="section__title">예식 안내</h2>
+        <p class="ceremony__datetime" id="ceremony-datetime"></p>
+        <p class="ceremony__venue" id="ceremony-venue"></p>
+        <div class="calendar" id="calendar" aria-label="예식 달력"></div>
+      </section>
+
+      <!-- Timeline -->
+      <section class="section timeline" id="timeline">
+        <h2 class="section__title" id="timeline-heading"></h2>
+        <ol class="timeline__list" id="timeline-list"></ol>
+      </section>
+
+      <!-- Gallery -->
+      <section class="section gallery" id="gallery">
+        <h2 class="section__title" id="gallery-heading"></h2>
+        <div class="gallery__grid" id="gallery-grid"></div>
+        <button type="button" class="btn btn--ghost" id="gallery-more" hidden>
+          더 보기
+        </button>
+      </section>
+
+      <!-- Location -->
+      <section class="section location" id="location">
+        <h2 class="section__title">오시는 길</h2>
+        <div class="location__card">
+          <p class="location__name" id="location-name"></p>
+          <p class="location__hall" id="location-hall"></p>
+          <p class="location__address" id="location-address"></p>
+          <div class="location__map" id="location-map" aria-label="지도">
+            <a
+              class="location__map-link"
+              id="location-map-link"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              지도에서 보기
+            </a>
+          </div>
+          <div class="location__nav">
+            <button type="button" class="btn btn--nav" data-map="tmap">티맵</button>
+            <button type="button" class="btn btn--nav" data-map="kakao">카카오내비</button>
+            <button type="button" class="btn btn--nav" data-map="naver">네이버지도</button>
+          </div>
+        </div>
+        <div class="location__transit" id="location-transit"></div>
+      </section>
+
+      <!-- Accounts -->
+      <section class="section accounts" id="accounts">
+        <h2 class="section__title" id="accounts-heading"></h2>
+        <div class="accounts__cols" id="accounts-block"></div>
+      </section>
+
+      <footer class="footer">
+        <p>Gun &amp; Chaelim · 2027.01.09</p>
+      </footer>
+    </main>
+
+    <!-- Parents contact modal -->
+    <div class="modal" id="modal-parents" hidden>
+      <div class="modal__backdrop" data-close="modal-parents"></div>
+      <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="parents-modal-title">
+        <h2 class="modal__title" id="parents-modal-title">혼주에게 연락하기</h2>
+        <div id="parents-modal-body"></div>
+        <button type="button" class="btn btn--ghost" data-close="modal-parents">닫기</button>
+      </div>
+    </div>
+
+    <!-- Gallery lightbox -->
+    <div class="lightbox" id="lightbox" hidden>
+      <div class="lightbox__backdrop" data-close="lightbox"></div>
+      <button type="button" class="lightbox__nav lightbox__nav--prev" id="lightbox-prev" aria-label="이전">
+        ‹
+      </button>
+      <img class="lightbox__image" id="lightbox-image" src="" alt="" />
+      <button type="button" class="lightbox__nav lightbox__nav--next" id="lightbox-next" aria-label="다음">
+        ›
+      </button>
+      <button type="button" class="lightbox__close" data-close="lightbox" aria-label="닫기">×</button>
+    </div>
+
+    <!-- RSVP modal -->
+    <div class="modal modal--rsvp" id="modal-rsvp" hidden>
+      <div class="modal__backdrop" data-close="modal-rsvp"></div>
+      <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="rsvp-title">
+        <h2 class="modal__title" id="rsvp-title"></h2>
+        <p class="modal__desc" id="rsvp-desc"></p>
+        <div class="rsvp__summary" id="rsvp-summary"></div>
+        <form class="rsvp__form" id="rsvp-form">
+          <label class="field">
+            <span>성함</span>
+            <input type="text" name="name" required autocomplete="name" placeholder="홍길동" />
+          </label>
+          <fieldset class="field field--choice">
+            <legend>참석 여부</legend>
+            <label><input type="radio" name="attend" value="yes" required checked /> 참석</label>
+            <label><input type="radio" name="attend" value="no" /> 불참</label>
+          </fieldset>
+          <fieldset class="field field--choice">
+            <legend>구분</legend>
+            <label><input type="radio" name="side" value="groom" required checked /> 신랑측</label>
+            <label><input type="radio" name="side" value="bride" /> 신부측</label>
+          </fieldset>
+          <label class="field">
+            <span>동행 인원 (본인 제외)</span>
+            <input type="number" name="guests" min="0" max="20" value="0" />
+          </label>
+          <label class="field">
+            <span>남기실 말씀 (선택)</span>
+            <textarea name="message" rows="3" placeholder="축하 메시지를 남겨 주세요"></textarea>
+          </label>
+          <button type="submit" class="btn btn--solid">전달하기</button>
+        </form>
+        <button type="button" class="rsvp__hide-today" id="rsvp-hide-today">오늘하루 보지않기</button>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" hidden role="status"></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
