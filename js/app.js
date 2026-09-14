@@ -109,8 +109,6 @@
     img.alt = data.images.hero.alt;
     const heroScript = $("#hero-script");
     if (heroScript) heroScript.textContent = data.invite.heroScript || "";
-    $("#hero-venue").textContent = data.ceremony.verticalVenue;
-    $("#hero-date").textContent = data.ceremony.verticalDate;
     $("#hero-names").innerHTML = `
       <span>${data.couple.groom.ko} <i>${data.couple.groom.en}</i></span>
       <span class="hero__amp">&amp;</span>
