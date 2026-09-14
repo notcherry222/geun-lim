@@ -366,20 +366,22 @@ textarea {
   background: #f3f1ec;
 }
 
-.location__map-link-wrap {
-  display: block;
-  line-height: 0;
-}
-
-.location__map-image {
-  display: block;
+.location__map-embed {
+  overflow: hidden;
   width: 100%;
-  height: auto;
-  aspect-ratio: 2 / 1.1;
-  object-fit: cover;
 }
 
-.location__map-canvas {
+.location__map-iframe {
+  display: block;
+  width: 820px;
+  max-width: none;
+  height: 100%;
+  margin-left: -360px;
+  border: 0;
+}
+
+.location__map-canvas,
+.location__map-rough {
   width: 100%;
   height: 280px;
 }
