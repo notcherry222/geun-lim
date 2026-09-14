@@ -172,14 +172,6 @@ window.WEDDING_DATA = {
     },
   },
 
-  rsvp: {
-    heading: "참석 여부 전달",
-    description:
-      "결혼식에 참석해주시는 모든 분들을 더욱 특별하게 모시고자 하오니, 참석 여부 전달을 부탁드립니다.",
-    storageKey: "wedding-rsvp-v1",
-    hideTodayKey: "wedding-rsvp-hide-today",
-  },
-
   gallery: {
     heading: "갤러리",
     initialCount: 4,

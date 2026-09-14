@@ -303,59 +303,6 @@
     });
   }
 
-  function todayKey() {
-    const now = new Date();
-    return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
-  }
-
-  function shouldShowRsvp() {
-    const hide = localStorage.getItem(data.rsvp.hideTodayKey);
-    return hide !== todayKey();
-  }
-
-  function renderRsvp() {
-    $("#rsvp-title").textContent = data.rsvp.heading;
-    $("#rsvp-desc").textContent = data.rsvp.description;
-    $("#rsvp-summary").innerHTML = `
-      <p>${data.couple.groom.ko} · ${data.couple.bride.ko}</p>
-      <p>${data.ceremony.fullDateLabel}</p>
-      <p>${data.ceremony.venueName} ${data.ceremony.venueHall}</p>
-    `;
-
-    if (shouldShowRsvp()) {
-      window.setTimeout(() => openModal("modal-rsvp"), 900);
-    }
-  }
-
-  function bindRsvpForm() {
-    $("#rsvp-form").addEventListener("submit", (event) => {
-      event.preventDefault();
-      const form = event.currentTarget;
-      const fd = new FormData(form);
-      const payload = {
-        name: String(fd.get("name") || "").trim(),
-        attend: fd.get("attend"),
-        side: fd.get("side"),
-        guests: Number(fd.get("guests") || 0),
-        message: String(fd.get("message") || "").trim(),
-        submittedAt: new Date().toISOString(),
-      };
-
-      const prev = JSON.parse(localStorage.getItem(data.rsvp.storageKey) || "[]");
-      prev.push(payload);
-      localStorage.setItem(data.rsvp.storageKey, JSON.stringify(prev));
-
-      showToast("참석 여부가 저장되었습니다");
-      closeModal("modal-rsvp");
-      form.reset();
-    });
-
-    $("#rsvp-hide-today").addEventListener("click", () => {
-      localStorage.setItem(data.rsvp.hideTodayKey, todayKey());
-      closeModal("modal-rsvp");
-    });
-  }
-
   function bindModals() {
     document.addEventListener("click", (event) => {
       const closer = event.target.closest("[data-close]");
@@ -377,7 +324,6 @@
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
         closeModal("modal-parents");
-        closeModal("modal-rsvp");
         closeLightbox();
       }
       if (!$("#lightbox").hidden) {
@@ -416,8 +362,6 @@
     renderGallery();
     renderLocation();
     renderAccounts();
-    renderRsvp();
-    bindRsvpForm();
     bindModals();
     observeReveals();
   }

@@ -549,18 +549,6 @@ textarea {
   background: rgba(47, 93, 74, 0.08);
 }
 
-.btn--solid {
-  width: 100%;
-  border-color: var(--accent);
-  background: var(--accent);
-  color: #fff;
-}
-
-.btn--solid:hover,
-.btn--solid:focus-visible {
-  background: #274e3f;
-}
-
 .btn--nav {
   border-radius: 10px;
   padding: 0.65rem 0.4rem;
@@ -673,75 +661,6 @@ textarea {
 
 .parents__phone.is-empty {
   color: var(--ink-soft);
-}
-
-.rsvp__summary {
-  text-align: center;
-  background: rgba(47, 93, 74, 0.06);
-  border-radius: 12px;
-  padding: 0.85rem 0.75rem;
-  margin-bottom: 1rem;
-  font-size: 0.86rem;
-  color: var(--ink-soft);
-}
-
-.rsvp__summary p {
-  margin: 0.15rem 0;
-}
-
-.rsvp__form {
-  display: grid;
-  gap: 0.85rem;
-}
-
-.field {
-  display: grid;
-  gap: 0.35rem;
-  font-size: 0.88rem;
-}
-
-.field span,
-.field legend {
-  color: var(--ink-soft);
-  padding: 0;
-}
-
-.field input[type="text"],
-.field input[type="number"],
-.field textarea {
-  width: 100%;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 0.7rem 0.8rem;
-  background: #fff;
-  color: var(--ink);
-}
-
-.field--choice {
-  border: 0;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 1rem;
-}
-
-.field--choice legend {
-  width: 100%;
-  margin-bottom: 0.2rem;
-}
-
-.rsvp__hide-today {
-  display: block;
-  width: 100%;
-  margin-top: 0.9rem;
-  border: 0;
-  background: transparent;
-  color: var(--ink-soft);
-  font-size: 0.82rem;
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 0.18em;
 }
 
 .lightbox {

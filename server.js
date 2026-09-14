@@ -1,13 +1,13 @@
 /**
  * Static file server (Node 20+, no dependencies).
- * Usage: npm start  →  http://localhost:3000
+ * Usage: npm start  →  http://localhost:3333
  */
 const http = require("node:http");
 const fs = require("node:fs");
 const path = require("node:path");
 const { pathToFileURL } = require("node:url");
 
-const PORT = Number(process.env.PORT) || 3000;
+const PORT = Number(process.env.PORT) || 3333;
 const ROOT = __dirname;
 
 const MIME = {
