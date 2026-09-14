@@ -33,8 +33,16 @@ window.WEDDING_DATA = {
   /** 히어로·갤러리 등 이미지는 src만 교체 */
   images: {
     hero: {
-      src: "assets/images/hero.svg",
-      alt: "신랑 신부 메인 사진",
+      src: "assets/images/lithuania.jpg",
+      alt: "리투아니아 카우나스 풍경",
+    },
+    story: {
+      src: "assets/images/lithuania.jpg",
+      alt: "리투아니아에서 바라본 도시 풍경",
+    },
+    locationMap: {
+      src: "assets/images/location-map.png",
+      alt: "그레이스파티 신림 약도",
     },
     gallery: [
       { src: "assets/images/gallery-01.svg", alt: "갤러리 사진 1" },
@@ -96,23 +104,6 @@ window.WEDDING_DATA = {
       tmap: "https://www.tmap.co.kr/tmap2/mobile/tmap.jsp?name=%EC%8B%A0%EB%A6%BC%20%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%8A%A4%20%ED%8C%8C%ED%8B%B0&lon=126.9296&lat=37.4842",
       kakao: "https://map.kakao.com/link/map/%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%8A%A4%ED%8C%8C%ED%8B%B0%20%EA%B4%80%EC%95%85%EB%B3%B8%EC%A0%90,37.4842,126.9296",
       naver: "https://map.naver.com/v5/search/%EC%8B%A0%EB%A6%BC%20%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%8A%A4%20%ED%8C%8C%ED%8B%B0",
-    },
-    /** 카카오 인터랙티브 지도 (그레이스파티 신림) */
-    kakaoMap: {
-      searchKeyword: "그레이스파티 신림",
-      placeName: "그레이스파티 관악본점",
-      lat: 37.4842,
-      lng: 126.9296,
-      wcong: { x: 484435, y: 1106882 },
-      level: 3,
-      height: 280,
-      embedUrl:
-        "https://map.kakao.com/?urlX=484435&urlY=1106882&urlLevel=3&map_type=TYPE_MAP&map_hybrid=false&name=%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%8A%A4%ED%8C%8C%ED%8B%B0+%EA%B4%80%EC%95%85%EB%B3%B8%EC%A0%90",
-      /** RoughMap: map.kakao.com → HTML 태그 복사의 timestamp/key */
-      roughMap: { timestamp: "", key: "" },
-      /** JS SDK: Kakao Developers JavaScript 키 (있으면 장소 검색 지도) */
-      appKey: "",
-      markerTitle: "그레이스파티 신림",
     },
   },
 

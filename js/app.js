@@ -121,6 +121,12 @@
   function renderInvite() {
     $("#invite-heading").textContent = data.invite.heading;
     $("#invite-eyebrow").textContent = data.invite.storyEyebrow;
+    const story = data.images.story;
+    const photo = $("#invite-photo");
+    if (photo && story) {
+      photo.src = story.src;
+      photo.alt = story.alt;
+    }
     $("#invite-body").innerHTML = data.invite.paragraphs
       .map((p) => `<p>${p}</p>`)
       .join("");
@@ -225,119 +231,18 @@
     $("#lightbox-image").alt = item.alt;
   }
 
-  function loadKakaoMapSdk(appKey) {
-    return new Promise((resolve, reject) => {
-      if (window.kakao && window.kakao.maps) {
-        window.kakao.maps.load(resolve);
-        return;
-      }
-
-      const script = document.createElement("script");
-      script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${appKey}&libraries=services&autoload=false`;
-      script.onload = () => window.kakao.maps.load(resolve);
-      script.onerror = reject;
-      document.head.appendChild(script);
-    });
-  }
-
-  function renderKakaoRoughMap(container, mapConfig) {
-    const { roughMap, height } = mapConfig;
-    const containerId = `daumRoughmapContainer${roughMap.timestamp}`;
-    container.innerHTML = `<div id="${containerId}" class="root_daum_roughmap root_daum_roughmap_landing location__map-rough"></div>`;
-
-    const render = () => {
-      if (!window.daum || !window.daum.roughmap) return;
-      const el = document.getElementById(containerId);
-      if (!el) return;
-      el.innerHTML = "";
-      new window.daum.roughmap.Lander({
-        timestamp: String(roughMap.timestamp),
-        key: String(roughMap.key),
-        mapWidth: "100%",
-        mapHeight: String(height),
-      }).render();
-    };
-
-    if (window.daum && window.daum.roughmap) {
-      render();
-      return;
-    }
-
-    const loader = document.querySelector(".daum_roughmap_loader_script");
-    if (loader) {
-      loader.addEventListener("load", render, { once: true });
-    }
-    window.setTimeout(render, 300);
-  }
-
-  function renderKakaoSdkMap(container, mapConfig) {
-    container.innerHTML = `<div id="kakao-map-canvas" class="location__map-canvas" role="application" aria-label="${mapConfig.markerTitle} 위치"></div>`;
-
-    const createMap = (center, title) => {
-      const mapEl = $("#kakao-map-canvas");
-      if (!mapEl) return;
-
-      const map = new window.kakao.maps.Map(mapEl, {
-        center,
-        level: mapConfig.level,
-      });
-      const marker = new window.kakao.maps.Marker({ map, position: center });
-      const info = new window.kakao.maps.InfoWindow({
-        content: `<div style="padding:6px 10px;font-size:13px;white-space:nowrap;">${title}</div>`,
-      });
-      info.open(map, marker);
-    };
-
-    const fallbackCenter = () => {
-      const center = new window.kakao.maps.LatLng(mapConfig.lat, mapConfig.lng);
-      createMap(center, mapConfig.markerTitle);
-    };
-
-    loadKakaoMapSdk(mapConfig.appKey)
-      .then(() => {
-        const places = new window.kakao.maps.services.Places();
-        places.keywordSearch(mapConfig.searchKeyword, (results, status) => {
-          if (status === window.kakao.maps.services.Status.OK && results.length) {
-            const place = results[0];
-            const center = new window.kakao.maps.LatLng(Number(place.y), Number(place.x));
-            createMap(center, place.place_name || mapConfig.markerTitle);
-            return;
-          }
-          fallbackCenter();
-        });
-      })
-      .catch(() => renderKakaoEmbedMap(container, mapConfig));
-  }
-
-  function renderKakaoEmbedMap(container, mapConfig) {
-    container.innerHTML = `
-      <div class="location__map-embed" style="height:${mapConfig.height}px">
-        <iframe
-          class="location__map-iframe"
-          title="${mapConfig.markerTitle} 위치"
-          src="${mapConfig.embedUrl}"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-        ></iframe>
-      </div>`;
-  }
-
-  function renderKakaoMap() {
-    const mapConfig = data.transport.kakaoMap;
+  function renderLocationMap() {
     const container = $("#location-map");
-    if (!mapConfig || !container) return;
+    const mapImage = data.images.locationMap;
+    if (!container || !mapImage) return;
 
-    const { roughMap, appKey } = mapConfig;
-
-    if (roughMap?.timestamp && roughMap?.key) {
-      renderKakaoRoughMap(container, mapConfig);
-      return;
-    }
-    if (appKey) {
-      renderKakaoSdkMap(container, mapConfig);
-      return;
-    }
-    renderKakaoEmbedMap(container, mapConfig);
+    container.innerHTML = `
+      <img
+        class="location__map-image"
+        src="${mapImage.src}"
+        alt="${mapImage.alt}"
+        loading="lazy"
+      />`;
   }
 
   function renderLocation() {
@@ -346,7 +251,7 @@
     $("#location-name").textContent = c.venueName;
     $("#location-hall").textContent = c.venueHall;
     $("#location-address").innerHTML = c.addressLines.map((line) => `${line}<br />`).join("");
-    renderKakaoMap();
+    renderLocationMap();
 
     const iconBus = `<span class="transit__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M4 11h16M8 20h1M15 20h1M7 17v3M17 17v3"/></svg></span>`;
     const iconSubway = `<span class="transit__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="12" rx="2"/><path d="M8 15l-2 5M16 15l2 5M9 8h6M8 11h8"/></svg></span>`;
