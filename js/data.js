@@ -85,7 +85,7 @@ window.WEDDING_DATA = {
     },
     car: {
       title: "자차",
-      notes: ["시흥 IC 방향 시 유턴 / 사당 방향 시 직", "주차장 2시간 무료"],
+      notes: ["주차장 2시간 무료"],
     },
     mapLinks: {
       tmap: "https://www.tmap.co.kr/tmap2/mobile/tmap.jsp?name=%EC%8B%A0%EB%A6%BC%20%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%8A%A4%20%ED%8C%8C%ED%8B%B0&lon=126.9296&lat=37.4842",
@@ -104,19 +104,19 @@ window.WEDDING_DATA = {
         {
           role: "신랑",
           bank: "카카오뱅크",
-          holder: "김도현",
+          holder: "왕가슴",
           number: "1111-1111-1111-1111",
         },
         {
           role: "신랑 아버지",
           bank: "카카오뱅크",
-          holder: "김종혁",
+          holder: "박덕영",
           number: "1111-1111-1111-1111",
         },
         {
           role: "신랑 어머니",
           bank: "카카오뱅크",
-          holder: "최은혜",
+          holder: "최미옥",
           number: "1111-1111-1111-1111",
         },
       ],
@@ -127,19 +127,19 @@ window.WEDDING_DATA = {
         {
           role: "신부",
           bank: "카카오뱅크",
-          holder: "이지유",
+          holder: "김채림",
           number: "1111-1111-1111-1111",
         },
         {
           role: "신부 아버지",
           bank: "카카오뱅크",
-          holder: "이주영",
+          holder: "김제찬",
           number: "1111-1111-1111-1111",
         },
         {
           role: "신부 어머니",
           bank: "카카오뱅크",
-          holder: "강지은",
+          holder: "이현순",
           number: "1111-1111-1111-1111",
         },
       ],
