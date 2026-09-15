@@ -35,8 +35,8 @@ window.WEDDING_DATA = {
       alt: "리투아니아 카우나스 풍경",
     },
     story: {
-      src: "assets/images/lithuania.jpg",
-      alt: "리투아니아에서 바라본 도시 풍경",
+      src: "assets/images/story.jpg",
+      alt: "함께한 여행의 추억",
     },
     locationMap: {
       src: "assets/images/location-map.png",

@@ -227,7 +227,6 @@ textarea {
   width: 100%;
   aspect-ratio: 3 / 4;
   object-fit: cover;
-  filter: saturate(0.78) contrast(0.94) brightness(1.02) sepia(0.14);
 }
 
 .invite__photo-tape {
