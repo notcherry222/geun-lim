@@ -196,7 +196,7 @@
   }
 
   function openLightbox(index) {
-    const list = getVisibleGallery();
+    const list = data.images.gallery;
     state.lightboxIndex = index;
     const item = list[index];
     if (!item) return;
@@ -219,7 +219,7 @@
   }
 
   function stepLightbox(delta) {
-    const list = getVisibleGallery();
+    const list = data.images.gallery;
     if (!list.length) return;
     state.lightboxIndex = (state.lightboxIndex + delta + list.length) % list.length;
     const item = list[state.lightboxIndex];
