@@ -297,22 +297,50 @@
       </li>`;
   }
 
+  function accountPanelHtml(side, key) {
+    return `
+      <div class="accounts__col" data-account-panel="${key}">
+        <button
+          type="button"
+          class="accounts__toggle"
+          data-account-toggle="${key}"
+          aria-expanded="false"
+          aria-controls="accounts-list-${key}"
+        >
+          <span>${side.label}</span>
+          <span class="accounts__toggle-icon" aria-hidden="true">+</span>
+        </button>
+        <ul id="accounts-list-${key}" class="accounts__list" hidden>
+          ${side.items.map(accountItemHtml).join("")}
+        </ul>
+      </div>`;
+  }
+
   function renderAccounts() {
     $("#accounts-heading").textContent = data.accounts.heading;
     const g = data.accounts.groomSide;
     const b = data.accounts.brideSide;
-    $("#accounts-block").innerHTML = `
-      <div class="accounts__col">
-        <h3>${g.label}</h3>
-        <ul>${g.items.map(accountItemHtml).join("")}</ul>
-      </div>
-      <div class="accounts__col">
-        <h3>${b.label}</h3>
-        <ul>${b.items.map(accountItemHtml).join("")}</ul>
-      </div>
+    const block = $("#accounts-block");
+    block.innerHTML = `
+      ${accountPanelHtml(g, "groom")}
+      ${accountPanelHtml(b, "bride")}
     `;
 
-    $("#accounts-block").addEventListener("click", (event) => {
+    block.addEventListener("click", (event) => {
+      const toggle = event.target.closest("[data-account-toggle]");
+      if (toggle) {
+        const key = toggle.dataset.accountToggle;
+        const panel = block.querySelector(`[data-account-panel="${key}"]`);
+        const list = panel?.querySelector(".accounts__list");
+        if (!panel || !list) return;
+
+        const willOpen = list.hidden;
+        list.hidden = !willOpen;
+        toggle.setAttribute("aria-expanded", String(willOpen));
+        panel.classList.toggle("is-open", willOpen);
+        return;
+      }
+
       const btn = event.target.closest("[data-copy]");
       if (!btn) return;
       copyText(btn.dataset.copy);
