@@ -29,7 +29,7 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Great+Vibes&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css?v=20260915b" />
   </head>
   <body>
     <main id="app">
@@ -127,7 +127,10 @@
       <button type="button" class="lightbox__nav lightbox__nav--prev" id="lightbox-prev" aria-label="이전">
         ‹
       </button>
-      <img class="lightbox__image" id="lightbox-image" src="" alt="" />
+      <div class="lightbox__stage" id="lightbox-stage">
+        <img class="lightbox__image" id="lightbox-image" src="" alt="" />
+        <p class="lightbox__counter" id="lightbox-counter" aria-live="polite"></p>
+      </div>
       <button type="button" class="lightbox__nav lightbox__nav--next" id="lightbox-next" aria-label="다음">
         ›
       </button>
@@ -136,7 +139,7 @@
 
     <div class="toast" id="toast" hidden role="status"></div>
 
-    <script src="js/data.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/data.js?v=20260915b"></script>
+    <script src="js/app.js?v=20260915b"></script>
   </body>
 </html>

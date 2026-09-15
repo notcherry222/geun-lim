@@ -164,46 +164,89 @@
     $("#calendar").innerHTML = buildCalendar(data.ceremony.dateISO);
   }
 
+  function getGalleryAll() {
+    return data.images.gallery;
+  }
+
   function getVisibleGallery() {
-    const all = data.images.gallery;
+    const all = getGalleryAll();
     if (state.galleryExpanded) return all;
     return all.slice(0, data.gallery.initialCount);
   }
 
+  function prefetchGalleryImage(index) {
+    const list = getGalleryAll();
+    const item = list[index];
+    if (!item) return;
+    const img = new Image();
+    img.src = item.src;
+  }
+
+  function updateLightboxView() {
+    const list = getGalleryAll();
+    const item = list[state.lightboxIndex];
+    if (!item) return;
+
+    const img = $("#lightbox-image");
+    const counter = $("#lightbox-counter");
+    const stage = $("#lightbox-stage");
+
+    if (counter) {
+      counter.textContent = `${state.lightboxIndex + 1} / ${list.length}`;
+    }
+
+    if (stage) stage.classList.add("is-loading");
+
+    const onReady = () => {
+      if (stage) stage.classList.remove("is-loading");
+      img.removeEventListener("load", onReady);
+      img.removeEventListener("error", onReady);
+    };
+
+    img.addEventListener("load", onReady);
+    img.addEventListener("error", onReady);
+    img.src = item.src;
+    img.alt = item.alt;
+
+    if (img.complete) onReady();
+
+    prefetchGalleryImage(state.lightboxIndex + 1);
+    prefetchGalleryImage(state.lightboxIndex - 1);
+  }
+
   function renderGallery() {
     $("#gallery-heading").textContent = data.gallery.heading;
-    const items = getVisibleGallery();
+    const all = getGalleryAll();
+    const visibleCount = state.galleryExpanded ? all.length : data.gallery.initialCount;
     const grid = $("#gallery-grid");
-    grid.innerHTML = items
+    grid.innerHTML = all
+      .slice(0, visibleCount)
       .map(
         (item, index) => `
-        <button type="button" class="gallery__item reveal" data-index="${index}" aria-label="${item.alt}">
+        <button type="button" class="gallery__item reveal" data-gallery-index="${index}" aria-label="${item.alt}">
           <img src="${item.src}" alt="${item.alt}" loading="lazy" />
         </button>`
       )
       .join("");
 
     const moreBtn = $("#gallery-more");
-    const hasMore = data.images.gallery.length > data.gallery.initialCount;
+    const hasMore = all.length > data.gallery.initialCount;
     moreBtn.hidden = !hasMore || state.galleryExpanded;
     moreBtn.textContent = data.gallery.moreLabel;
 
     grid.onclick = (event) => {
-      const btn = event.target.closest("[data-index]");
+      const btn = event.target.closest("[data-gallery-index]");
       if (!btn) return;
-      openLightbox(Number(btn.dataset.index));
+      openLightbox(Number(btn.dataset.galleryIndex));
     };
   }
 
   function openLightbox(index) {
-    const list = data.images.gallery;
+    const list = getGalleryAll();
+    if (!list[index]) return;
     state.lightboxIndex = index;
-    const item = list[index];
-    if (!item) return;
+    updateLightboxView();
     const box = $("#lightbox");
-    const img = $("#lightbox-image");
-    img.src = item.src;
-    img.alt = item.alt;
     box.hidden = false;
     document.body.classList.add("is-locked");
     requestAnimationFrame(() => box.classList.add("is-open"));
@@ -219,12 +262,44 @@
   }
 
   function stepLightbox(delta) {
-    const list = data.images.gallery;
+    const list = getGalleryAll();
     if (!list.length) return;
     state.lightboxIndex = (state.lightboxIndex + delta + list.length) % list.length;
-    const item = list[state.lightboxIndex];
-    $("#lightbox-image").src = item.src;
-    $("#lightbox-image").alt = item.alt;
+    updateLightboxView();
+  }
+
+  function bindLightboxGestures() {
+    const stage = $("#lightbox-stage");
+    if (!stage) return;
+
+    let startX = 0;
+    let startY = 0;
+    let tracking = false;
+
+    stage.addEventListener(
+      "touchstart",
+      (event) => {
+        const touch = event.changedTouches[0];
+        startX = touch.clientX;
+        startY = touch.clientY;
+        tracking = true;
+      },
+      { passive: true }
+    );
+
+    stage.addEventListener(
+      "touchend",
+      (event) => {
+        if (!tracking) return;
+        tracking = false;
+        const touch = event.changedTouches[0];
+        const dx = touch.clientX - startX;
+        const dy = touch.clientY - startY;
+        if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy)) return;
+        stepLightbox(dx < 0 ? 1 : -1);
+      },
+      { passive: true }
+    );
   }
 
   function renderLocationMap() {
@@ -362,8 +437,15 @@
       renderGallery();
       observeReveals();
     });
-    $("#lightbox-prev").addEventListener("click", () => stepLightbox(-1));
-    $("#lightbox-next").addEventListener("click", () => stepLightbox(1));
+    $("#lightbox-prev").addEventListener("click", (event) => {
+      event.stopPropagation();
+      stepLightbox(-1);
+    });
+    $("#lightbox-next").addEventListener("click", (event) => {
+      event.stopPropagation();
+      stepLightbox(1);
+    });
+    bindLightboxGestures();
 
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
