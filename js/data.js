@@ -77,10 +77,8 @@ window.WEDDING_DATA = {
       "저희의 새로운 시작을 함께 축복해 주세요.",
     ],
     /** 핀터 감성 장식 문구 (섹션 순서 변경 없음) */
-    heroScript: "From Kaunas, With Love.",
-    closingScript: "Same people, New chapter.",
+    heroScript: "We are getting married!",
     tapeLabel: "Kaunas 2019",
-    stampLabel: "KAUNAS 2019 · LITHUANIA",
   },
 
   parents: {

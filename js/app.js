@@ -128,8 +128,6 @@
     $("#invite-body").innerHTML = data.invite.paragraphs
       .map((p) => `<p>${p}</p>`)
       .join("");
-    const closing = $("#invite-script");
-    if (closing) closing.textContent = data.invite.closingScript || "";
     const tape = $("#invite-tape");
     if (tape) tape.textContent = data.invite.tapeLabel || "Kaunas 2019";
   }
