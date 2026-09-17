@@ -1,8 +1,8 @@
-/* Pixel prologue — scoped to #intro-balloon only */
+/* Pixel prologue — PNG backgrounds + sprites. Scoped to #intro-balloon only. */
 
 #intro-balloon {
-  --intro-ink: #0f1020;
-  --intro-ui: #f4e4c1;
+  --intro-ink: #0a0a0c;
+  --intro-ui: #fff8e8;
   --intro-font: "Press Start 2P", "Courier New", monospace;
 
   position: fixed;
@@ -19,7 +19,7 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.65s ease;
 }
 
 #intro-balloon[hidden] {
@@ -35,21 +35,24 @@
   position: absolute;
   top: max(0.75rem, env(safe-area-inset-top));
   right: max(0.75rem, env(safe-area-inset-right));
-  z-index: 30;
+  z-index: 40;
   appearance: none;
   border: 2px solid var(--intro-ui);
-  background: var(--intro-ink);
+  background: rgba(0, 0, 0, 0.55);
   color: var(--intro-ui);
   font-family: var(--intro-font);
-  font-size: 0.5rem;
-  padding: 0.4rem 0.5rem;
+  font-size: 0.55rem;
+  line-height: 1;
+  padding: 0.55rem 0.65rem;
   cursor: pointer;
 }
 
 .intro__stage {
   position: relative;
-  width: min(100%, 420px);
-  height: min(100dvh, 760px);
+  width: 100%;
+  max-width: 430px;
+  height: 100%;
+  max-height: 100dvh;
   overflow: hidden;
   background: #000;
 }
@@ -59,7 +62,7 @@
   inset: 0;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.28s ease;
+  transition: opacity 0.35s ease;
 }
 
 .intro__scene.is-active {
@@ -70,456 +73,370 @@
   pointer-events: auto;
 }
 
-/* ===== SCENE 1: AREA TITLE ===== */
+.intro__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  pointer-events: none;
+}
+
+/* ===== SCENE 1: Title ===== */
 .intro__scene--title {
   display: grid;
   place-items: center;
   background: #000;
   text-align: center;
+  padding: 1.5rem;
 }
 
-.intro__area {
-  border: 3px solid #f4e4c1;
-  padding: 1.1rem 1.2rem 1rem;
-  box-shadow: 4px 4px 0 #3b2f1e, inset 0 0 0 2px #1a1c2c;
-  background: #12141f;
+.intro__title-block {
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(8px);
 }
 
-.intro__scene--title.is-active .intro__area {
-  animation: introAreaIn 0.45s steps(4) forwards;
+.intro__scene--title.is-active .intro__title-block {
+  animation: introTitleIn 0.4s steps(3) forwards;
 }
 
-.intro__area-label {
-  margin: 0 0 0.55rem;
-  font-size: 0.38rem;
-  letter-spacing: 0.18em;
-  color: #9bbcff;
+.intro__title-year {
+  margin: 0 0 1rem;
+  font-size: clamp(1.55rem, 9.5vw, 2.35rem);
+  line-height: 1.15;
+  letter-spacing: 0.06em;
+  color: #fff;
+  text-shadow: 3px 3px 0 #222;
 }
 
-.intro__area-year {
-  margin: 0 0 0.55rem;
-  font-size: clamp(0.9rem, 4.5vw, 1.15rem);
-}
-
-.intro__area-place {
+.intro__title-place {
   margin: 0;
-  font-size: clamp(0.4rem, 2.1vw, 0.5rem);
-  line-height: 1.7;
+  font-size: clamp(0.72rem, 4.2vw, 1.05rem);
+  line-height: 1.55;
   letter-spacing: 0.04em;
+  color: #fff;
+  text-shadow: 2px 2px 0 #222;
 }
 
-/* ===== SCENE 2: MEET ===== */
-.intro__scene--meet {
-  background: #7eb6ff;
+@keyframes introTitleIn {
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
-.intro__town {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: 100%;
-  max-width: 420px;
-  height: auto;
-  transform: translateX(-50%);
-  image-rendering: pixelated;
-}
-
+/* ===== SCENE 2: Meet ===== */
 .intro__actors {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 11%;
-  height: 96px;
+  height: 34%;
   z-index: 2;
 }
 
 .intro__actor {
   position: absolute;
   bottom: 0;
-  width: 56px;
-  height: 84px;
-  transition: left 1.35s steps(10), right 1.35s steps(10);
-}
-
-.intro__actor img {
-  width: 56px;
-  height: 84px;
-  image-rendering: pixelated;
-  filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.25));
-}
-
-.intro__actor--gun {
-  left: 2%;
-}
-
-.intro__actor--chaelim {
-  right: 2%;
-}
-
-.intro__scene--meet.is-walking .intro__actor--gun {
-  left: calc(50% - 58px);
-}
-
-.intro__scene--meet.is-walking .intro__actor--chaelim {
-  right: calc(50% - 58px);
-}
-
-.intro__react-slot {
-  position: absolute;
-  left: 50%;
-  top: -4px;
-  width: 28px;
-  margin-left: -14px;
-  text-align: center;
-  font-size: 0.85rem;
-  z-index: 3;
-}
-
-.intro__react {
-  position: absolute;
-  left: 0;
-  right: 0;
-  opacity: 0;
-  text-shadow: 2px 2px 0 #000;
-  transition: opacity 0.12s ease;
-}
-
-.intro__react--bang {
-  color: #ffe08a;
-}
-
-.intro__react--heart {
-  color: #ff6b8a;
-}
-
-.intro__scene--meet.is-bang .intro__react--bang {
-  opacity: 1;
-}
-
-.intro__scene--meet.is-heart .intro__react--bang {
-  opacity: 0;
-}
-
-.intro__scene--meet.is-heart .intro__react--heart {
-  opacity: 1;
-}
-
-/* ===== SCENE 3: YEARS ===== */
-.intro__scene--years {
-  display: grid;
-  place-items: center;
-  text-align: center;
-  padding: 1rem;
-  background: linear-gradient(180deg, #7eb6ff 0%, #f0c48a 45%, #3b2a5c 100%);
-  transition: background 0.5s ease;
-}
-
-.intro__scene--years.is-dusk {
-  background: linear-gradient(180deg, #f0a060 0%, #c45a6a 40%, #2a1a40 100%);
-}
-
-.intro__scene--years.is-night {
-  background: linear-gradient(180deg, #1b1f4a 0%, #2a2158 40%, #0f1020 100%);
-}
-
-.intro__years-card {
-  width: min(90%, 300px);
-  padding: 1rem 0.85rem;
-  border: 3px solid #f4e4c1;
-  background: rgba(15, 16, 32, 0.72);
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35);
-}
-
-.intro__timeline-labels {
-  display: flex;
-  justify-content: space-between;
-  font-size: clamp(0.36rem, 1.8vw, 0.44rem);
-  margin-bottom: 0.5rem;
-}
-
-.intro__timeline-bar {
-  height: 10px;
-  border: 2px solid #f4e4c1;
-  background: #0f1020;
-  margin-bottom: 0.85rem;
-}
-
-.intro__timeline-fill {
-  display: block;
-  height: 100%;
-  width: 0%;
-  background: repeating-linear-gradient(90deg, #ff6b8a 0 6px, #ffe08a 6px 8px);
-}
-
-.intro__scene--years.is-active .intro__timeline-fill {
-  animation: introFill 1.2s steps(14) forwards;
-}
-
-.intro__later {
-  margin: 0;
-  font-size: clamp(0.42rem, 2.1vw, 0.52rem);
-  letter-spacing: 0.05em;
-  opacity: 0;
-}
-
-.intro__scene--years.is-active .intro__later {
-  animation: introFadeIn 0.35s ease 0.45s forwards;
-}
-
-/* ===== SCENE 4: FLIGHT GAME ===== */
-.intro__scene--flight {
-  background: #1b1f4a;
-  cursor: pointer;
-}
-
-.intro__flight-layers {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-}
-
-.intro__sky {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, #1b1f4a 0%, #3b5dc9 38%, #8eb4ff 70%, #f0c8a0 100%);
-  transform: translate3d(0, 0, 0);
-  will-change: transform;
-}
-
-.intro__cloud {
-  position: absolute;
-  width: 56px;
-  height: 16px;
-  background:
-    linear-gradient(#fff 0 0) 0 8px / 56px 8px no-repeat,
-    linear-gradient(#fff 0 0) 10px 0 / 36px 8px no-repeat;
-  opacity: 0.85;
-  will-change: transform;
-}
-
-.intro__cloud--back-a {
-  left: 8%;
-  top: 28%;
-  transform: scale(1.15);
-  opacity: 0.55;
-}
-
-.intro__cloud--back-b {
-  left: 62%;
-  top: 40%;
-  opacity: 0.5;
-}
-
-.intro__cloud--mid-a {
-  left: 20%;
-  top: 52%;
-}
-
-.intro__cloud--mid-b {
-  left: 70%;
-  top: 58%;
-  transform: scale(0.85);
-}
-
-.intro__cloud--front-a {
-  left: 5%;
-  top: 68%;
-  z-index: 5;
-  transform: scale(1.3);
-  opacity: 0.9;
-}
-
-.intro__cloud--front-b {
-  left: 55%;
-  top: 74%;
-  z-index: 5;
-  opacity: 0.88;
-}
-
-.intro__city-sil {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
+  width: clamp(112px, 34vw, 148px);
   height: auto;
   image-rendering: pixelated;
   will-change: transform;
 }
 
-.intro__hud {
+.intro__actor--gun {
+  left: 6%;
+  transform: translate3d(-120%, 0, 0);
+}
+
+.intro__actor--chaelim {
+  right: 6%;
+  transform: translate3d(120%, 0, 0);
+}
+
+.intro__scene--meet.is-walking .intro__actor--gun,
+.intro__scene--meet.is-walking .intro__actor--chaelim {
+  transition: transform 1.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.intro__scene--meet.is-walking .intro__actor--gun {
+  transform: translate3d(18%, 0, 0);
+}
+
+.intro__scene--meet.is-walking .intro__actor--chaelim {
+  transform: translate3d(-18%, 0, 0);
+}
+
+.intro__react-slot {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: max(2.8rem, calc(env(safe-area-inset-top) + 2.2rem));
-  z-index: 8;
-  padding: 0 0.85rem;
-  text-align: center;
-  pointer-events: none;
+  left: 50%;
+  top: -0.35rem;
+  transform: translateX(-50%);
+  z-index: 3;
+  width: 2.6rem;
+  height: 2.6rem;
+  display: grid;
+  place-items: center;
 }
 
-.intro__hud-title {
-  margin: 0 0 0.45rem;
-  font-size: 0.42rem;
-  letter-spacing: 0.14em;
-  color: #9bbcff;
-  text-shadow: 2px 2px 0 #000;
-}
-
-.intro__hud-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: clamp(0.32rem, 1.7vw, 0.4rem);
-  margin-bottom: 0.35rem;
-  text-shadow: 1px 1px 0 #000;
-}
-
-.intro__gauge {
-  height: 10px;
-  border: 2px solid #f4e4c1;
-  background: #0f1020;
-  box-shadow: inset 2px 2px 0 #000;
-}
-
-.intro__gauge-fill {
-  display: block;
-  height: 100%;
-  width: 0%;
-  background: repeating-linear-gradient(90deg, #7ec8ff 0 6px, #ffe08a 6px 8px);
-}
-
-.intro__dest {
-  margin: 0.7rem 0 0;
-  font-size: clamp(0.38rem, 1.9vw, 0.46rem);
-  line-height: 1.7;
-  text-shadow: 2px 2px 0 #000;
-}
-
-.intro__prompt {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: max(1.4rem, calc(env(safe-area-inset-bottom) + 1rem));
-  z-index: 8;
-  text-align: center;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
-}
-
-.intro__prompt p {
-  margin: 0.3rem 0;
-  font-size: clamp(0.38rem, 1.9vw, 0.46rem);
-  text-shadow: 2px 2px 0 #000;
-}
-
-.intro__prompt-en {
-  font-size: clamp(0.34rem, 1.7vw, 0.4rem) !important;
-  color: #ffe08a;
-}
-
-.intro__scene--flight.is-playing .intro__prompt {
-  opacity: 0.35;
-}
-
-.intro__scene--flight.is-arrived .intro__prompt {
+.intro__react {
+  grid-area: 1 / 1;
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 3px solid #1a1a1a;
+  border-radius: 4px;
+  background: #fffdf5;
+  color: #111;
+  font-size: 1.15rem;
+  line-height: 1;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.35);
   opacity: 0;
+  transform: scale(0.6);
+}
+
+.intro__react--heart {
+  color: #e23b4a;
+}
+
+.intro__scene--meet.is-bang .intro__react--bang,
+.intro__scene--meet.is-heart .intro__react--heart {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.15s steps(2), transform 0.15s steps(2);
+}
+
+/* ===== SCENE 3: Years ===== */
+.intro__years-copy {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: max(12%, calc(env(safe-area-inset-top) + 3.5rem));
+  z-index: 3;
+  text-align: center;
+  padding: 0 0.75rem;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.65);
+}
+
+.intro__years-line {
+  margin: 0 0 0.85rem;
+  font-size: clamp(0.72rem, 4vw, 0.95rem);
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  color: #fff;
+}
+
+.intro__years-line span {
+  display: inline-block;
+  margin: 0 0.2rem;
+  letter-spacing: -0.12em;
+  opacity: 0.9;
+}
+
+.intro__later {
+  margin: 0;
+  font-size: clamp(0.62rem, 3.5vw, 0.82rem);
+  line-height: 1.45;
+  color: #ffe7a8;
+}
+
+.intro__years-pair {
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.35rem;
+  transform: translateX(-50%);
+}
+
+.intro__years-pair img {
+  width: clamp(96px, 28vw, 128px);
+  height: auto;
+  image-rendering: pixelated;
+}
+
+/* ===== SCENE 4–6: Flight ===== */
+.intro__flight-bg {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.intro__bg--flight,
+.intro__bg--final {
+  transition: opacity 0.55s ease;
+}
+
+.intro__bg--final {
+  opacity: 0;
+}
+
+.intro__scene--flight.is-final .intro__bg--flight {
+  opacity: 0;
+}
+
+.intro__scene--flight.is-final .intro__bg--final {
+  opacity: 1;
 }
 
 .intro__ride {
   position: absolute;
   left: 50%;
-  bottom: 16%;
-  width: 110px;
-  margin-left: -55px;
+  bottom: 18%;
   z-index: 4;
-  text-align: center;
+  width: clamp(150px, 46vw, 200px);
+  transform: translate3d(-50%, 0, 0);
   will-change: transform;
+  transition: filter 0.3s ease;
 }
 
 .intro__ride-balloon {
-  width: 86px;
-  height: 108px;
-  margin: 0 auto;
+  display: block;
+  width: 100%;
+  height: auto;
   image-rendering: pixelated;
-  filter: drop-shadow(3px 3px 0 rgba(0, 0, 0, 0.28));
+  filter: drop-shadow(0 8px 0 rgba(0, 0, 0, 0.18));
 }
 
-.intro__ride-pair {
-  display: flex;
-  justify-content: center;
-  gap: 2px;
-  margin-top: -14px;
+.intro__scene--flight.is-ready .intro__ride {
+  animation: introBalloonBob 2.2s ease-in-out infinite;
 }
 
-.intro__ride-pair img {
-  width: 30px;
-  height: 45px;
-  image-rendering: pixelated;
+@keyframes introBalloonBob {
+  0%,
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  50% {
+    transform: translate3d(-50%, -10px, 0);
+  }
 }
 
-.intro__flight-copy {
+.intro__tap {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 34%;
-  z-index: 9;
+  left: 50%;
+  bottom: max(1.4rem, env(safe-area-inset-bottom));
+  z-index: 6;
+  transform: translateX(-50%);
+  width: min(88%, 320px);
+  appearance: none;
+  border: 4px solid #1c140c;
+  border-radius: 6px;
+  background: linear-gradient(#fff4d8, #f0d9a0);
+  box-shadow: 0 5px 0 #1c140c, inset 0 0 0 2px #fffaf0;
+  color: #1c140c;
+  font-family: var(--intro-font);
+  padding: 1rem 0.85rem 0.95rem;
+  cursor: pointer;
   text-align: center;
   opacity: 0;
   pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.12s ease;
 }
 
-.intro__scene--flight.is-arrived .intro__flight-copy {
-  animation: introFadeIn 0.4s ease forwards;
+.intro__scene--flight.is-ready .intro__tap {
+  opacity: 1;
+  pointer-events: auto;
+  animation: introTapPulse 1.4s steps(2) infinite;
 }
 
-.intro__flight-names {
-  margin: 0 0 0.55rem;
-  font-size: clamp(0.52rem, 2.6vw, 0.68rem);
-  color: #ffe08a;
-  text-shadow: 2px 2px 0 #000;
+.intro__tap:active {
+  transform: translateX(-50%) translateY(3px);
+  box-shadow: 0 2px 0 #1c140c, inset 0 0 0 2px #fffaf0;
 }
 
-.intro__flight-date {
+.intro__tap-en {
+  display: block;
+  font-size: clamp(0.78rem, 4.4vw, 1.05rem);
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+}
+
+.intro__tap-ko {
+  display: block;
+  margin-top: 0.55rem;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: clamp(0.78rem, 3.6vw, 0.95rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+@keyframes introTapPulse {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.08);
+  }
+}
+
+.intro__scene--flight.is-flying .intro__tap {
+  opacity: 0;
+  pointer-events: none;
+  animation: none;
+}
+
+.intro__scene--flight.is-flying .intro__ride {
+  animation: none;
+}
+
+.intro__final-copy {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: max(14%, calc(env(safe-area-inset-top) + 4rem));
+  z-index: 5;
+  text-align: center;
+  padding: 0 0.75rem;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+}
+
+.intro__scene--flight.is-final .intro__final-copy {
+  opacity: 1;
+  transform: none;
+}
+
+.intro__final-names {
+  margin: 0 0 0.85rem;
+  font-size: clamp(0.95rem, 5.2vw, 1.35rem);
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  color: #fff;
+}
+
+.intro__final-date {
   margin: 0;
-  font-size: clamp(0.4rem, 2vw, 0.5rem);
-  text-shadow: 2px 2px 0 #000;
+  font-size: clamp(0.7rem, 3.8vw, 0.95rem);
+  line-height: 1.4;
+  color: #ffe7b0;
 }
 
-@keyframes introAreaIn {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
+@media (max-height: 640px) {
+  .intro__actors {
+    bottom: 8%;
+    height: 30%;
   }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
 
-@keyframes introFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
+  .intro__actor {
+    width: clamp(96px, 30vw, 128px);
   }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
 
-@keyframes introFill {
-  from {
-    width: 0%;
+  .intro__ride {
+    width: clamp(128px, 40vw, 170px);
+    bottom: 16%;
   }
-  to {
-    width: 100%;
-  }
-}
 
-@media (min-width: 720px) {
-  .intro__stage {
-    box-shadow: 0 0 0 4px #0f1020, 0 0 0 8px #f4e4c1;
+  .intro__tap {
+    padding: 0.8rem 0.7rem 0.75rem;
   }
 }
