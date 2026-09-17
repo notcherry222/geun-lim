@@ -30,56 +30,80 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/style.css?v=20260915b" />
-    <link rel="stylesheet" href="css/intro.css?v=20260917a" />
+    <link rel="stylesheet" href="css/intro.css?v=20260917b" />
   </head>
   <body>
-    <!-- Retro balloon intro (session once) -->
-    <div id="intro-balloon" aria-label="열기구 인트로">
+    <!-- Pixel prologue cutscene (session once) -->
+    <div id="intro-balloon" aria-label="프롤로그">
       <button type="button" class="intro__skip">SKIP</button>
       <div class="intro__stage">
-        <div class="intro__hud-top">
-          <p class="intro__year">2019</p>
-          <p class="intro__place">LITHUANIA</p>
-        </div>
-
-        <div class="intro__world" aria-hidden="true">
-          <span class="intro__cloud intro__cloud--a"></span>
-          <span class="intro__cloud intro__cloud--b"></span>
-          <span class="intro__cloud intro__cloud--c"></span>
-          <div class="intro__hills"></div>
-        </div>
-
-        <div class="intro__balloon-wrap">
-          <img
-            class="intro__balloon"
-            src="assets/images/intro-balloon.svg"
-            alt=""
-            width="72"
-            height="96"
-            draggable="false"
-          />
-        </div>
-
-        <div class="intro__hint">
-          <p>꾹 눌러 열기구를 띄워보세요</p>
-          <p class="intro__hint-en">PRESS &amp; HOLD TO FLY</p>
-        </div>
-
-        <div class="intro__track">
-          <div class="intro__track-labels">
-            <span>2019 · LITHUANIA</span>
-            <span>2027 · KOREA</span>
-          </div>
-          <div class="intro__bar" aria-hidden="true">
-            <span class="intro__bar-fill"></span>
-          </div>
-        </div>
-
-        <div class="intro__arrive" aria-live="polite">
+        <!-- 0~1s title -->
+        <div class="intro__scene intro__scene--title is-active">
           <div>
-            <p class="intro__arrive-title">2027 · KOREA</p>
-            <p class="intro__arrive-names">GUN &amp; CHAELIM</p>
-            <p class="intro__arrive-date">2027.01.09</p>
+            <p class="intro__title-year">2019</p>
+            <p class="intro__title-place">KAUNAS, LITHUANIA</p>
+          </div>
+        </div>
+
+        <!-- 1~2.5s meet -->
+        <div class="intro__scene intro__scene--meet">
+          <div class="intro__map-decor" aria-hidden="true">
+            <span class="intro__pixel-cloud intro__pixel-cloud--a"></span>
+            <span class="intro__pixel-cloud intro__pixel-cloud--b"></span>
+            <span class="intro__castle"></span>
+          </div>
+          <div class="intro__actors">
+            <div class="intro__actor intro__actor--gun">
+              <img src="assets/images/intro-gun.svg" alt="" width="48" height="72" draggable="false" />
+              <span class="intro__react intro__react--bang">!</span>
+              <span class="intro__react intro__react--heart">♥</span>
+            </div>
+            <div class="intro__actor intro__actor--chaelim">
+              <img src="assets/images/intro-chaelim.svg" alt="" width="48" height="72" draggable="false" />
+            </div>
+          </div>
+        </div>
+
+        <!-- 2.5~3.5s years -->
+        <div class="intro__scene intro__scene--years">
+          <div>
+            <div class="intro__timeline">
+              <div class="intro__timeline-labels">
+                <span>2019</span>
+                <span>2027</span>
+              </div>
+              <div class="intro__timeline-bar">
+                <span class="intro__timeline-fill"></span>
+              </div>
+            </div>
+            <p class="intro__later">8 YEARS LATER...</p>
+          </div>
+        </div>
+
+        <!-- 3.5~5s flight → fade to card -->
+        <div class="intro__scene intro__scene--flight">
+          <div class="intro__flight-sky" aria-hidden="true">
+            <span class="intro__flight-cloud intro__flight-cloud--a"></span>
+            <span class="intro__flight-cloud intro__flight-cloud--b"></span>
+            <span class="intro__flight-cloud intro__flight-cloud--c"></span>
+          </div>
+          <div class="intro__flight-copy">
+            <p class="intro__flight-names">GUN ♥ CHAELIM</p>
+            <p class="intro__flight-date">2027. 01. 09</p>
+          </div>
+          <div class="intro__ride">
+            <img
+              class="intro__ride-balloon"
+              src="assets/images/intro-balloon.svg"
+              alt=""
+              width="72"
+              height="90"
+              draggable="false"
+            />
+            <div class="intro__ride-pair">
+              <img src="assets/images/intro-gun.svg" alt="" width="28" height="42" draggable="false" />
+              <img src="assets/images/intro-chaelim.svg" alt="" width="28" height="42" draggable="false" />
+            </div>
           </div>
         </div>
       </div>
@@ -206,6 +230,6 @@
 
     <script src="js/data.js?v=20260915b"></script>
     <script src="js/app.js?v=20260915b"></script>
-    <script src="js/intro.js?v=20260917a"></script>
+    <script src="js/intro.js?v=20260917b"></script>
   </body>
 </html>

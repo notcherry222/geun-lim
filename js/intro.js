@@ -1,30 +1,37 @@
 /**
- * Retro balloon intro (overlay only).
+ * Pixel prologue cutscene (overlay only).
  * Does not alter wedding card sections/data.
  */
 (function () {
   const STORAGE_KEY = "geun-lim-intro-seen";
-  const FLIGHT_MS = 4800;
-  const ARRIVE_HOLD_MS = 800;
-  const FADE_MS = 700;
+  const FADE_MS = 550;
+
+  // Timed cutscene (~5s total)
+  const T = {
+    title: 0,
+    meet: 1000,
+    walk: 1100,
+    bang: 2300,
+    heart: 2550,
+    years: 2800,
+    flight: 3700,
+    lift: 3850,
+    end: 5200,
+  };
 
   const root = document.getElementById("intro-balloon");
   if (!root) return;
 
   const skipBtn = root.querySelector(".intro__skip");
-  const arrive = root.querySelector(".intro__arrive");
-  const hint = root.querySelector(".intro__hint");
-  const hudTop = root.querySelector(".intro__hud-top");
-  const balloonWrap = root.querySelector(".intro__balloon-wrap");
-  const barFill = root.querySelector(".intro__bar-fill");
+  const scenes = {
+    title: root.querySelector(".intro__scene--title"),
+    meet: root.querySelector(".intro__scene--meet"),
+    years: root.querySelector(".intro__scene--years"),
+    flight: root.querySelector(".intro__scene--flight"),
+  };
 
-  let holding = false;
-  let started = false;
+  const timers = [];
   let finished = false;
-  let altitude = 0;
-  let progress = 0;
-  let startTs = 0;
-  let rafId = 0;
 
   function alreadySeen() {
     try {
@@ -50,109 +57,75 @@
     document.body.classList.remove("is-locked");
   }
 
-  function setHolding(next) {
-    if (finished) return;
-    holding = next;
-    if (next && !started) {
-      started = true;
-      startTs = performance.now();
-      if (hint) hint.style.opacity = "0";
-      balloonWrap?.classList.add("is-flying");
-      rafId = requestAnimationFrame(tick);
+  function clearTimers() {
+    while (timers.length) {
+      window.clearTimeout(timers.pop());
     }
   }
 
-  function renderVisual() {
-    const lift = altitude * -42;
-    if (balloonWrap) {
-      balloonWrap.style.transform = `translate3d(0, ${lift}vh, 0)`;
-    }
-    if (barFill) {
-      barFill.style.width = `${Math.min(100, progress * 100)}%`;
-    }
+  function later(ms, fn) {
+    timers.push(window.setTimeout(fn, ms));
   }
 
-  function tick(now) {
-    if (finished) return;
-
-    const elapsed = now - startTs;
-    const timeProgress = Math.min(1, elapsed / FLIGHT_MS);
-
-    if (holding) {
-      altitude = Math.min(1, altitude + 0.018);
-      progress = Math.min(1, progress + 0.012);
-    } else {
-      altitude = Math.max(0.08, altitude - 0.01);
-      progress = Math.min(1, progress + 0.004);
-    }
-
-    progress = Math.max(progress, timeProgress * 0.92);
-    if (timeProgress >= 1) progress = 1;
-
-    renderVisual();
-
-    if (progress >= 1) {
-      finishFlight();
-      return;
-    }
-
-    rafId = requestAnimationFrame(tick);
-  }
-
-  function finishFlight() {
-    if (finished) return;
-    finished = true;
-    holding = false;
-    cancelAnimationFrame(rafId);
-
-    altitude = Math.max(altitude, 0.72);
-    progress = 1;
-    renderVisual();
-
-    if (hudTop) hudTop.style.opacity = "0";
-    if (hint) hint.style.opacity = "0";
-    arrive?.classList.add("is-visible");
-
-    window.setTimeout(() => {
-      closeIntro();
-    }, ARRIVE_HOLD_MS);
+  function showScene(name) {
+    Object.keys(scenes).forEach((key) => {
+      scenes[key]?.classList.toggle("is-active", key === name);
+    });
   }
 
   function closeIntro() {
+    if (finished) return;
+    finished = true;
+    clearTimers();
     markSeen();
     root.classList.add("is-leaving");
-    window.setTimeout(() => {
+    later(FADE_MS, () => {
       root.hidden = true;
       root.classList.remove("is-leaving");
       unlockScroll();
-    }, FADE_MS);
+    });
   }
 
-  function skipIntro(event) {
+  function runSequence() {
+    showScene("title");
+
+    later(T.meet, () => {
+      showScene("meet");
+    });
+
+    later(T.walk, () => {
+      scenes.meet?.classList.add("is-walking");
+    });
+
+    later(T.bang, () => {
+      scenes.meet?.classList.add("is-bang");
+    });
+
+    later(T.heart, () => {
+      scenes.meet?.classList.add("is-heart");
+    });
+
+    later(T.years, () => {
+      showScene("years");
+    });
+
+    later(T.flight, () => {
+      showScene("flight");
+    });
+
+    later(T.lift, () => {
+      scenes.flight?.classList.add("is-lift");
+    });
+
+    later(T.end, () => {
+      closeIntro();
+    });
+  }
+
+  function onSkip(event) {
     event.preventDefault();
     event.stopPropagation();
-    if (finished && root.classList.contains("is-leaving")) return;
-    finished = true;
-    cancelAnimationFrame(rafId);
     closeIntro();
-  }
-
-  function onPointerDown(event) {
-    if (event.target.closest(".intro__skip")) return;
-    if (finished) return;
-    event.preventDefault();
-    setHolding(true);
-  }
-
-  function onPointerUp() {
-    setHolding(false);
-  }
-
-  function bind() {
-    root.addEventListener("pointerdown", onPointerDown);
-    window.addEventListener("pointerup", onPointerUp);
-    window.addEventListener("pointercancel", onPointerUp);
-    skipBtn?.addEventListener("click", skipIntro);
   }
 
   function startIntro() {
@@ -163,8 +136,8 @@
 
     root.hidden = false;
     lockScroll();
-    bind();
-    renderVisual();
+    skipBtn?.addEventListener("click", onSkip);
+    runSequence();
   }
 
   window.startBalloonIntro = startIntro;

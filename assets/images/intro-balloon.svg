@@ -1,24 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="48" height="64" viewBox="0 0 48 64" shape-rendering="crispEdges">
-  <!-- pixel balloon placeholder (8-bit style) -->
-  <rect width="48" height="64" fill="none"/>
-  <!-- envelope -->
-  <rect x="14" y="4" width="20" height="4" fill="#e85d4c"/>
-  <rect x="10" y="8" width="28" height="4" fill="#e85d4c"/>
-  <rect x="8" y="12" width="32" height="4" fill="#f2a39a"/>
-  <rect x="6" y="16" width="36" height="8" fill="#e85d4c"/>
-  <rect x="6" y="24" width="36" height="4" fill="#c94a3c"/>
-  <rect x="8" y="28" width="32" height="4" fill="#e85d4c"/>
-  <rect x="10" y="32" width="28" height="4" fill="#f2a39a"/>
-  <rect x="14" y="36" width="20" height="4" fill="#e85d4c"/>
-  <!-- highlight -->
-  <rect x="12" y="14" width="4" height="8" fill="#ffd2cb"/>
-  <!-- ropes -->
-  <rect x="16" y="40" width="2" height="8" fill="#6b5344"/>
-  <rect x="30" y="40" width="2" height="8" fill="#6b5344"/>
-  <rect x="18" y="46" width="12" height="2" fill="#6b5344"/>
-  <!-- basket -->
-  <rect x="18" y="48" width="12" height="8" fill="#c4a574"/>
-  <rect x="18" y="52" width="12" height="2" fill="#8a6b3f"/>
-  <rect x="20" y="50" width="2" height="2" fill="#5c4030"/>
-  <rect x="26" y="50" width="2" height="2" fill="#5c4030"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="40" viewBox="0 0 32 40" shape-rendering="crispEdges">
+  <!-- placeholder: new pixel balloon (not previous design) -->
+  <rect x="10" y="1" width="12" height="2" fill="#5b8def"/>
+  <rect x="8" y="3" width="16" height="2" fill="#7aa6ff"/>
+  <rect x="6" y="5" width="20" height="4" fill="#5b8def"/>
+  <rect x="6" y="9" width="20" height="4" fill="#3f6fd1"/>
+  <rect x="6" y="13" width="20" height="4" fill="#5b8def"/>
+  <rect x="8" y="17" width="16" height="2" fill="#7aa6ff"/>
+  <rect x="10" y="19" width="12" height="2" fill="#5b8def"/>
+  <rect x="9" y="7" width="2" height="8" fill="#cfe0ff"/>
+  <rect x="12" y="21" width="2" height="6" fill="#6b5344"/>
+  <rect x="18" y="21" width="2" height="6" fill="#6b5344"/>
+  <rect x="12" y="26" width="8" height="2" fill="#6b5344"/>
+  <rect x="11" y="28" width="10" height="6" fill="#d2a679"/>
+  <rect x="11" y="31" width="10" height="2" fill="#b88855"/>
+  <rect x="13" y="29" width="2" height="2" fill="#5c4030"/>
+  <rect x="17" y="29" width="2" height="2" fill="#5c4030"/>
+  <rect x="14" y="34" width="4" height="2" fill="#8a6b3f"/>
 </svg>
