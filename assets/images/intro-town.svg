@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="320" viewBox="0 0 420 320" shape-rendering="crispEdges">
+  <!-- Kaunas-inspired pixel town backdrop -->
+  <rect width="420" height="320" fill="#7eb6ff"/>
+  <!-- far hills -->
+  <rect x="0" y="150" width="420" height="40" fill="#6aa0e8"/>
+  <rect x="20" y="130" width="80" height="40" fill="#6aa0e8"/>
+  <rect x="140" y="120" width="100" height="50" fill="#5b93db"/>
+  <rect x="280" y="128" width="90" height="42" fill="#6aa0e8"/>
+  <!-- church silhouette -->
+  <rect x="185" y="78" width="50" height="80" fill="#cfc6b4"/>
+  <rect x="198" y="48" width="24" height="40" fill="#b8ae9a"/>
+  <rect x="204" y="28" width="12" height="24" fill="#a89f88"/>
+  <rect x="208" y="16" width="4" height="16" fill="#8d8570"/>
+  <rect x="200" y="90" width="8" height="12" fill="#4a3f32"/>
+  <rect x="214" y="90" width="8" height="12" fill="#4a3f32"/>
+  <!-- left row buildings -->
+  <rect x="8" y="140" width="52" height="90" fill="#e8d9c0"/>
+  <rect x="12" y="148" width="10" height="12" fill="#6b8cae"/>
+  <rect x="28" y="148" width="10" height="12" fill="#6b8cae"/>
+  <rect x="44" y="148" width="10" height="12" fill="#6b8cae"/>
+  <rect x="12" y="170" width="10" height="12" fill="#6b8cae"/>
+  <rect x="28" y="170" width="10" height="12" fill="#6b8cae"/>
+  <rect x="44" y="170" width="10" height="12" fill="#6b8cae"/>
+  <rect x="22" y="200" width="16" height="30" fill="#6b5344"/>
+  <rect x="62" y="128" width="48" height="102" fill="#d9c4a8"/>
+  <rect x="68" y="136" width="10" height="10" fill="#7a9bb8"/>
+  <rect x="86" y="136" width="10" height="10" fill="#7a9bb8"/>
+  <rect x="68" y="156" width="10" height="10" fill="#7a9bb8"/>
+  <rect x="86" y="156" width="10" height="10" fill="#7a9bb8"/>
+  <rect x="78" y="190" width="14" height="40" fill="#5c4030"/>
+  <!-- mid buildings -->
+  <rect x="118" y="150" width="40" height="80" fill="#f0e2cc"/>
+  <rect x="124" y="158" width="8" height="10" fill="#5a7a98"/>
+  <rect x="138" y="158" width="8" height="10" fill="#5a7a98"/>
+  <rect x="124" y="176" width="8" height="10" fill="#5a7a98"/>
+  <rect x="138" y="176" width="8" height="10" fill="#5a7a98"/>
+  <rect x="248" y="142" width="44" height="88" fill="#e2d0b5"/>
+  <rect x="254" y="150" width="10" height="12" fill="#6b8cae"/>
+  <rect x="272" y="150" width="10" height="12" fill="#6b8cae"/>
+  <rect x="254" y="172" width="10" height="12" fill="#6b8cae"/>
+  <rect x="272" y="172" width="10" height="12" fill="#6b8cae"/>
+  <!-- right buildings -->
+  <rect x="300" y="134" width="56" height="96" fill="#dcc9ad"/>
+  <rect x="308" y="142" width="12" height="14" fill="#5f82a4"/>
+  <rect x="328" y="142" width="12" height="14" fill="#5f82a4"/>
+  <rect x="308" y="166" width="12" height="14" fill="#5f82a4"/>
+  <rect x="328" y="166" width="12" height="14" fill="#5f82a4"/>
+  <rect x="318" y="196" width="16" height="34" fill="#6b5344"/>
+  <rect x="360" y="148" width="50" height="82" fill="#e8d7bc"/>
+  <rect x="368" y="156" width="10" height="12" fill="#6b8cae"/>
+  <rect x="386" y="156" width="10" height="12" fill="#6b8cae"/>
+  <rect x="368" y="176" width="10" height="12" fill="#6b8cae"/>
+  <rect x="386" y="176" width="10" height="12" fill="#6b8cae"/>
+  <!-- trees -->
+  <rect x="48" y="200" width="6" height="28" fill="#6b5344"/>
+  <rect x="40" y="186" width="22" height="18" fill="#2f6b2a"/>
+  <rect x="160" y="198" width="6" height="30" fill="#6b5344"/>
+  <rect x="150" y="180" width="26" height="22" fill="#3a7d32"/>
+  <rect x="280" y="196" width="6" height="32" fill="#6b5344"/>
+  <rect x="270" y="178" width="26" height="22" fill="#2f6b2a"/>
+  <!-- lamp posts -->
+  <rect x="100" y="188" width="4" height="40" fill="#5a5348"/>
+  <rect x="96" y="184" width="12" height="6" fill="#e8c96a"/>
+  <rect x="230" y="188" width="4" height="40" fill="#5a5348"/>
+  <rect x="226" y="184" width="12" height="6" fill="#e8c96a"/>
+  <!-- sign -->
+  <rect x="168" y="200" width="28" height="16" fill="#f4e4c1"/>
+  <rect x="170" y="202" width="24" height="4" fill="#1a1c2c"/>
+  <rect x="178" y="216" width="6" height="14" fill="#6b5344"/>
+  <!-- cobblestone street -->
+  <rect x="0" y="228" width="420" height="92" fill="#9a9080"/>
+  <rect x="0" y="228" width="420" height="8" fill="#8a8070"/>
+  <rect x="20" y="244" width="24" height="8" fill="#8a8070"/>
+  <rect x="60" y="256" width="28" height="8" fill="#a09888"/>
+  <rect x="120" y="248" width="32" height="8" fill="#8a8070"/>
+  <rect x="180" y="260" width="36" height="8" fill="#a09888"/>
+  <rect x="240" y="244" width="28" height="8" fill="#8a8070"/>
+  <rect x="300" y="256" width="40" height="8" fill="#a09888"/>
+  <rect x="360" y="248" width="30" height="8" fill="#8a8070"/>
+  <rect x="40" y="280" width="40" height="8" fill="#8a8070"/>
+  <rect x="140" y="288" width="48" height="8" fill="#a09888"/>
+  <rect x="260" y="276" width="36" height="8" fill="#8a8070"/>
+</svg>

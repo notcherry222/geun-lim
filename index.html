@@ -30,80 +30,99 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/style.css?v=20260915b" />
-    <link rel="stylesheet" href="css/intro.css?v=20260917b" />
+    <link rel="stylesheet" href="css/intro.css?v=20260917c" />
   </head>
   <body>
-    <!-- Pixel prologue cutscene (session once) -->
+    <!-- Pixel prologue cutscene + tap flight (session once) -->
     <div id="intro-balloon" aria-label="프롤로그">
       <button type="button" class="intro__skip">SKIP</button>
       <div class="intro__stage">
-        <!-- 0~1s title -->
+        <!-- SCENE 1 -->
         <div class="intro__scene intro__scene--title is-active">
-          <div>
-            <p class="intro__title-year">2019</p>
-            <p class="intro__title-place">KAUNAS, LITHUANIA</p>
+          <div class="intro__area">
+            <p class="intro__area-label">AREA</p>
+            <p class="intro__area-year">2019</p>
+            <p class="intro__area-place">KAUNAS, LITHUANIA</p>
           </div>
         </div>
 
-        <!-- 1~2.5s meet -->
+        <!-- SCENE 2 -->
         <div class="intro__scene intro__scene--meet">
-          <div class="intro__map-decor" aria-hidden="true">
-            <span class="intro__pixel-cloud intro__pixel-cloud--a"></span>
-            <span class="intro__pixel-cloud intro__pixel-cloud--b"></span>
-            <span class="intro__castle"></span>
-          </div>
+          <img class="intro__town" src="assets/images/intro-town.svg" alt="" draggable="false" />
           <div class="intro__actors">
-            <div class="intro__actor intro__actor--gun">
-              <img src="assets/images/intro-gun.svg" alt="" width="48" height="72" draggable="false" />
+            <div class="intro__react-slot" aria-hidden="true">
               <span class="intro__react intro__react--bang">!</span>
               <span class="intro__react intro__react--heart">♥</span>
             </div>
+            <div class="intro__actor intro__actor--gun">
+              <img src="assets/images/intro-gun.svg" alt="" width="56" height="84" draggable="false" />
+            </div>
             <div class="intro__actor intro__actor--chaelim">
-              <img src="assets/images/intro-chaelim.svg" alt="" width="48" height="72" draggable="false" />
+              <img src="assets/images/intro-chaelim.svg" alt="" width="56" height="84" draggable="false" />
             </div>
           </div>
         </div>
 
-        <!-- 2.5~3.5s years -->
+        <!-- SCENE 3 -->
         <div class="intro__scene intro__scene--years">
-          <div>
-            <div class="intro__timeline">
-              <div class="intro__timeline-labels">
-                <span>2019</span>
-                <span>2027</span>
-              </div>
-              <div class="intro__timeline-bar">
-                <span class="intro__timeline-fill"></span>
-              </div>
+          <div class="intro__years-card">
+            <div class="intro__timeline-labels">
+              <span>2019</span>
+              <span>2027</span>
+            </div>
+            <div class="intro__timeline-bar">
+              <span class="intro__timeline-fill"></span>
             </div>
             <p class="intro__later">8 YEARS LATER...</p>
           </div>
         </div>
 
-        <!-- 3.5~5s flight → fade to card -->
+        <!-- SCENE 4 — tap mini-game -->
         <div class="intro__scene intro__scene--flight">
-          <div class="intro__flight-sky" aria-hidden="true">
-            <span class="intro__flight-cloud intro__flight-cloud--a"></span>
-            <span class="intro__flight-cloud intro__flight-cloud--b"></span>
-            <span class="intro__flight-cloud intro__flight-cloud--c"></span>
+          <div class="intro__flight-layers" aria-hidden="true">
+            <div class="intro__sky"></div>
+            <span class="intro__cloud intro__cloud--back-a" data-base-x="0"></span>
+            <span class="intro__cloud intro__cloud--back-b" data-base-x="0"></span>
+            <span class="intro__cloud intro__cloud--mid-a" data-base-x="0"></span>
+            <span class="intro__cloud intro__cloud--mid-b" data-base-x="0"></span>
+            <img class="intro__city-sil" src="assets/images/intro-city-sil.svg" alt="" draggable="false" />
+            <span class="intro__cloud intro__cloud--front-a" data-base-x="0"></span>
+            <span class="intro__cloud intro__cloud--front-b" data-base-x="0"></span>
           </div>
+
+          <div class="intro__hud">
+            <p class="intro__hud-title">JOURNEY</p>
+            <div class="intro__hud-row">
+              <span>LITHUANIA · 2019</span>
+              <span>KOREA · 2027</span>
+            </div>
+            <div class="intro__gauge"><span class="intro__gauge-fill"></span></div>
+            <p class="intro__dest">DESTINATION<br />OUR WEDDING</p>
+          </div>
+
           <div class="intro__flight-copy">
             <p class="intro__flight-names">GUN ♥ CHAELIM</p>
             <p class="intro__flight-date">2027. 01. 09</p>
           </div>
+
           <div class="intro__ride">
             <img
               class="intro__ride-balloon"
               src="assets/images/intro-balloon.svg"
               alt=""
-              width="72"
-              height="90"
+              width="86"
+              height="108"
               draggable="false"
             />
             <div class="intro__ride-pair">
-              <img src="assets/images/intro-gun.svg" alt="" width="28" height="42" draggable="false" />
-              <img src="assets/images/intro-chaelim.svg" alt="" width="28" height="42" draggable="false" />
+              <img src="assets/images/intro-gun.svg" alt="" width="30" height="45" draggable="false" />
+              <img src="assets/images/intro-chaelim.svg" alt="" width="30" height="45" draggable="false" />
             </div>
+          </div>
+
+          <div class="intro__prompt">
+            <p>화면을 눌러 열기구를 띄워보세요</p>
+            <p class="intro__prompt-en">TAP TO FLY</p>
           </div>
         </div>
       </div>
@@ -230,6 +249,6 @@
 
     <script src="js/data.js?v=20260915b"></script>
     <script src="js/app.js?v=20260915b"></script>
-    <script src="js/intro.js?v=20260917b"></script>
+    <script src="js/intro.js?v=20260917c"></script>
   </body>
 </html>
