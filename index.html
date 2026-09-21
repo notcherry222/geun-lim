@@ -26,122 +26,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Great+Vibes&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@400;500&family=Press+Start+2P&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Great+Vibes&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/style.css?v=20260915b" />
-    <link rel="stylesheet" href="css/intro.css?v=20260917d" />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <!-- Pixel prologue (PNG backgrounds + sprites, session once) -->
-    <div id="intro-balloon" aria-label="프롤로그">
-      <button type="button" class="intro__skip">SKIP</button>
-      <div class="intro__stage">
-        <!-- SCENE 1: Title -->
-        <div class="intro__scene intro__scene--title is-active">
-          <div class="intro__title-block">
-            <p class="intro__title-year">2019</p>
-            <p class="intro__title-place">KAUNAS,<br />LITHUANIA</p>
-          </div>
-        </div>
-
-        <!-- SCENE 2: Meet -->
-        <div class="intro__scene intro__scene--meet">
-          <img
-            class="intro__bg"
-            src="assets/images/intro/bk_kaunas.png"
-            alt=""
-            draggable="false"
-          />
-          <div class="intro__actors">
-            <div class="intro__react-slot" aria-hidden="true">
-              <span class="intro__react intro__react--bang">!</span>
-              <span class="intro__react intro__react--heart">♥</span>
-            </div>
-            <img
-              class="intro__actor intro__actor--gun"
-              src="assets/images/intro/gun.png"
-              alt=""
-              draggable="false"
-            />
-            <img
-              class="intro__actor intro__actor--chaelim"
-              src="assets/images/intro/chaelim.png"
-              alt=""
-              draggable="false"
-            />
-          </div>
-        </div>
-
-        <!-- SCENE 3: Time pass -->
-        <div class="intro__scene intro__scene--years">
-          <img
-            class="intro__bg"
-            src="assets/images/intro/bg_time.png"
-            alt=""
-            draggable="false"
-          />
-          <div class="intro__years-pair" aria-hidden="true">
-            <img src="assets/images/intro/gun.png" alt="" draggable="false" />
-            <img src="assets/images/intro/chaelim.png" alt="" draggable="false" />
-          </div>
-          <div class="intro__years-copy">
-            <p class="intro__years-line">2019 <span aria-hidden="true">━━━━━━━━</span> 2027</p>
-            <p class="intro__later">8 YEARS LATER...</p>
-          </div>
-        </div>
-
-        <!-- SCENE 4–6: Flight / rise / final -->
-        <div class="intro__scene intro__scene--flight">
-          <div class="intro__flight-bg" aria-hidden="true">
-            <img
-              class="intro__bg intro__bg--flight"
-              src="assets/images/intro/bg_flight.png"
-              alt=""
-              draggable="false"
-            />
-            <img
-              class="intro__bg intro__bg--final"
-              src="assets/images/intro/bg_final.png"
-              alt=""
-              draggable="false"
-            />
-          </div>
-
-          <div class="intro__ride">
-            <img
-              class="intro__ride-balloon"
-              src="assets/images/intro/balloon_couple.png"
-              alt=""
-              draggable="false"
-            />
-          </div>
-
-          <div class="intro__final-copy" aria-hidden="true">
-            <p class="intro__final-names">GUN ♥ CHAELIM</p>
-            <p class="intro__final-date">2027. 01. 09</p>
-          </div>
-
-          <button type="button" class="intro__tap">
-            <span class="intro__tap-en">TAP TO FLY</span>
-            <span class="intro__tap-ko">함께 더 멀리, 날아가요!</span>
-          </button>
-        </div>
-      </div>
-    </div>
-    <script>
-      (function () {
-        try {
-          if (sessionStorage.getItem("geun-lim-intro-seen") === "1") {
-            var el = document.getElementById("intro-balloon");
-            if (el) el.hidden = true;
-          } else {
-            document.body.classList.add("is-locked");
-          }
-        } catch (e) {}
-      })();
-    </script>
-
     <main id="app">
       <!-- Hero -->
       <section class="hero" id="hero" aria-label="메인">
@@ -237,10 +127,7 @@
       <button type="button" class="lightbox__nav lightbox__nav--prev" id="lightbox-prev" aria-label="이전">
         ‹
       </button>
-      <div class="lightbox__stage" id="lightbox-stage">
-        <img class="lightbox__image" id="lightbox-image" src="" alt="" />
-        <p class="lightbox__counter" id="lightbox-counter" aria-live="polite"></p>
-      </div>
+      <img class="lightbox__image" id="lightbox-image" src="" alt="" />
       <button type="button" class="lightbox__nav lightbox__nav--next" id="lightbox-next" aria-label="다음">
         ›
       </button>
@@ -249,8 +136,7 @@
 
     <div class="toast" id="toast" hidden role="status"></div>
 
-    <script src="js/data.js?v=20260915b"></script>
-    <script src="js/app.js?v=20260915b"></script>
-    <script src="js/intro.js?v=20260917d"></script>
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
   </body>
 </html>
