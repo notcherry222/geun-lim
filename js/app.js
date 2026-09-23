@@ -18,6 +18,14 @@
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
+  /** 그리드용 썸네일 경로 (원본은 lightbox에서 사용) */
+  function galleryThumbSrc(src) {
+    const marker = "/gallery/";
+    const index = src.indexOf(marker);
+    if (index === -1) return src;
+    return `${src.slice(0, index + marker.length)}thumbs/${src.slice(index + marker.length)}`;
+  }
+
   function showToast(message) {
     const el = $("#toast");
     el.textContent = message;
@@ -178,7 +186,7 @@
       .map(
         (item, index) => `
         <button type="button" class="gallery__item reveal" data-index="${index}" aria-label="${item.alt}">
-          <img src="${item.src}" alt="${item.alt}" loading="lazy" />
+          <img src="${galleryThumbSrc(item.src)}" alt="${item.alt}" loading="lazy" decoding="async" />
         </button>`
       )
       .join("");

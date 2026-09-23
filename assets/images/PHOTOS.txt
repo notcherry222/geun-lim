@@ -2,6 +2,8 @@
 1) 이 폴더에 jpg/png/webp 파일을 넣습니다.
 2) js/data.js 의 images.hero.src / images.gallery[].src 경로를 새 파일명으로 바꿉니다.
 예) src: "assets/images/hero.jpg"
+3) 갤러리 원본을 gallery/ 에 넣은 뒤 npm run thumbs 로 그리드용 썸네일을 만듭니다.
+   (그리드=thumbs, 확대보기=원본. 화질·색감 유지용 고품질 설정)
 
 권장 비율
 - hero: 세로 3:4 ~ 9:16

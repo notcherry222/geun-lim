@@ -8,6 +8,10 @@
   },
   "scripts": {
     "start": "node server.js",
-    "serve": "node server.js"
+    "serve": "node server.js",
+    "thumbs": "node scripts/generate-gallery-thumbs.js"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.4"
   }
 }

@@ -2,6 +2,8 @@
  * 청첩장 콘텐츠 / 에셋 경로 모음
  * - 문구·일정·계좌·사진은 여기만 수정하면 됩니다.
  * - 사진 교체: assets/images/ 에 파일을 넣고 아래 src 경로를 바꾸세요.
+ * - 갤러리 그리드는 thumbs/ 를 쓰고, 클릭(lightbox) 시에만 원본 src 를 로드합니다.
+ *   썸네일 재생성: npm run thumbs
  */
 window.WEDDING_DATA = {
   meta: {
