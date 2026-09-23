@@ -97,11 +97,23 @@
     for (let i = 0; i < startWeekday; i += 1) {
       cells.push('<span class="calendar__day is-empty"></span>');
     }
+    const heart = `
+      <svg class="calendar__heart" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path
+          d="M12 20.4S4.2 15.2 2.2 10.6C.7 7.2 2.6 3.8 6.3 3.8c2 0 3.7 1.2 5.2 3 1.5-1.8 3.2-3 5.2-3 3.7 0 5.6 3.4 4.1 6.8C19.8 15.2 12 20.4 12 20.4z"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>`;
+
     for (let day = 1; day <= lastDay; day += 1) {
       const isWedding = day === d;
-      const time = isWedding ? `<em>${data.ceremony.timeLabel.replace("오후 ", "")}</em>` : "";
       cells.push(
-        `<span class="calendar__day${isWedding ? " is-wedding" : ""}">${day}${time}</span>`
+        `<span class="calendar__day${isWedding ? " is-wedding" : ""}">${day}${
+          isWedding ? heart : ""
+        }</span>`
       );
     }
 
