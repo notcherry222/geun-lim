@@ -127,7 +127,7 @@ window.WEDDING_DATA = {
         {
           role: "신랑",
           bank: "카카오뱅크",
-          holder: "왕가슴",
+          holder: "박건",
           number: "1111-1111-1111-1111",
         },
         {
