@@ -12,7 +12,7 @@ window.WEDDING_DATA = {
   },
 
   couple: {
-    groom: { ko: "박건", en: "Geun" },
+    groom: { ko: "박건", en: "Gun" },
     bride: { ko: "김채림", en: "Chaelim" },
   },
 
@@ -48,7 +48,6 @@ window.WEDDING_DATA = {
       { src: "assets/images/gallery/01.jpg", alt: "갤러리 사진 1" },
       { src: "assets/images/gallery/02.jpg", alt: "갤러리 사진 2" },
       { src: "assets/images/gallery/03.jpg", alt: "갤러리 사진 3" },
-      { src: "assets/images/gallery/04.jpg", alt: "갤러리 사진 4" },
       { src: "assets/images/gallery/05.jpg", alt: "갤러리 사진 5" },
       { src: "assets/images/gallery/06.jpg", alt: "갤러리 사진 6" },
       { src: "assets/images/gallery/07.jpg", alt: "갤러리 사진 7" },
@@ -75,12 +74,11 @@ window.WEDDING_DATA = {
     storyEyebrow: "LITHUANIA, 2019 → KOREA, 2027",
     paragraphs: [
       "교환학생으로 떠난 리투아니아에서",
-      "평생 같이 살 사람을 데려왔습니다.",
+      "함께 할 사람을 만났습니다.",
       "저희의 새로운 시작을 함께 축복해 주세요.",
     ],
     /** 핀터 감성 장식 문구 (섹션 순서 변경 없음) */
     heroScript: "We are getting married!",
-    tapeLabel: "Kaunas 2019",
   },
 
   parents: {

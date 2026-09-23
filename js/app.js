@@ -38,24 +38,6 @@
     }, 1800);
   }
 
-  function openModal(id) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.hidden = false;
-    document.body.classList.add("is-locked");
-    requestAnimationFrame(() => el.classList.add("is-open"));
-  }
-
-  function closeModal(id) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.classList.remove("is-open");
-    document.body.classList.remove("is-locked");
-    window.setTimeout(() => {
-      el.hidden = true;
-    }, 220);
-  }
-
   async function copyText(text) {
     try {
       if (navigator.clipboard && window.isSecureContext) {
@@ -148,8 +130,6 @@
     $("#invite-body").innerHTML = data.invite.paragraphs
       .map((p) => `<p>${p}</p>`)
       .join("");
-    const tape = $("#invite-tape");
-    if (tape) tape.textContent = data.invite.tapeLabel || "Kaunas 2019";
   }
 
   function renderParents() {
@@ -158,23 +138,6 @@
       <p class="parents__line">${formatParentLine(groomSide)}</p>
       <p class="parents__line">${formatParentLine(brideSide)}</p>
     `;
-
-    const sideHtml = (side) => {
-      const rows = [
-        { label: "아버지", person: side.father },
-        { label: "어머니", person: side.mother },
-      ]
-        .map(({ label, person }) => {
-          const phone = person.phone
-            ? `<a class="parents__phone" href="tel:${person.phone}">${person.phone}</a>`
-            : `<span class="parents__phone is-empty">연락처 미등록</span>`;
-          return `<div class="parents__row"><span>${label}</span><strong>${person.name}</strong>${phone}</div>`;
-        })
-        .join("");
-      return `<div class="parents__side"><h3>${side.label}</h3>${rows}</div>`;
-    };
-
-    $("#parents-modal-body").innerHTML = sideHtml(groomSide) + sideHtml(brideSide);
   }
 
   function renderCeremony() {
@@ -373,10 +336,8 @@
       if (!closer) return;
       const id = closer.getAttribute("data-close");
       if (id === "lightbox") closeLightbox();
-      else closeModal(id);
     });
 
-    $("#btn-contact-parents").addEventListener("click", () => openModal("modal-parents"));
     $("#gallery-more").addEventListener("click", () => {
       state.galleryExpanded = true;
       renderGallery();
@@ -387,7 +348,6 @@
 
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
-        closeModal("modal-parents");
         closeLightbox();
       }
       if (!$("#lightbox").hidden) {
