@@ -474,7 +474,7 @@ textarea {
   border-radius: 8px;
   overflow: hidden;
   border: 1px solid var(--line);
-  background: #111;
+  background: #fff;
   box-shadow: var(--shadow-soft);
 }
 
