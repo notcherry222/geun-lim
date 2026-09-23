@@ -66,6 +66,9 @@ window.WEDDING_DATA = {
       { src: "assets/images/gallery/20.jpg", alt: "갤러리 사진 20" },
       { src: "assets/images/gallery/21.jpg", alt: "갤러리 사진 21" },
       { src: "assets/images/gallery/22.jpg", alt: "갤러리 사진 22" },
+      { src: "assets/images/gallery/23.jpg", alt: "갤러리 사진 23" },
+      { src: "assets/images/gallery/24.jpg", alt: "갤러리 사진 24" },
+      { src: "assets/images/gallery/25.jpg", alt: "갤러리 사진 25" },
     ],
   },
 
