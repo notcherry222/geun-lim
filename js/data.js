@@ -2,8 +2,6 @@
  * 청첩장 콘텐츠 / 에셋 경로 모음
  * - 문구·일정·계좌·사진은 여기만 수정하면 됩니다.
  * - 사진 교체: assets/images/ 에 파일을 넣고 아래 src 경로를 바꾸세요.
- * - 갤러리 그리드는 thumbs/ 를 쓰고, 클릭(lightbox) 시에만 원본 src 를 로드합니다.
- *   썸네일 재생성: npm run thumbs
  */
 window.WEDDING_DATA = {
   meta: {
@@ -12,8 +10,8 @@ window.WEDDING_DATA = {
   },
 
   couple: {
-    groom: { ko: "박건", en: "Gun" },
-    bride: { ko: "김채림", en: "Chaelim" },
+    groom: { ko: "박건", en: "Gun", phone: "010-2484-0331" },
+    bride: { ko: "김채림", en: "Chaelim", phone: "010-4433-4815" },
   },
 
   ceremony: {
@@ -77,11 +75,12 @@ window.WEDDING_DATA = {
     storyEyebrow: "LITHUANIA, 2019 → KOREA, 2027",
     paragraphs: [
       "교환학생으로 떠난 리투아니아에서",
-      "함께 할 사람을 만났습니다.",
+      "평생 같이 살 사람을 데려왔습니다.",
       "저희의 새로운 시작을 함께 축복해 주세요.",
     ],
     /** 핀터 감성 장식 문구 (섹션 순서 변경 없음) */
     heroScript: "We are getting married!",
+    tapeLabel: "Kaunas 2019",
   },
 
   parents: {
@@ -128,22 +127,16 @@ window.WEDDING_DATA = {
       label: "신랑측",
       items: [
         {
-          role: "신랑",
-          bank: "카카오뱅크",
-          holder: "박건",
-          number: "1111-1111-1111-1111",
-        },
-        {
           role: "신랑 아버지",
           bank: "카카오뱅크",
           holder: "박덕영",
-          number: "1111-1111-1111-1111",
+          number: "3333 08 3004602",
         },
         {
           role: "신랑 어머니",
-          bank: "카카오뱅크",
+          bank: "농협은행",
           holder: "최미옥",
-          number: "1111-1111-1111-1111",
+          number: "919 12 359263",
         },
       ],
     },
@@ -151,22 +144,16 @@ window.WEDDING_DATA = {
       label: "신부측",
       items: [
         {
-          role: "신부",
-          bank: "카카오뱅크",
-          holder: "김채림",
-          number: "1111-1111-1111-1111",
-        },
-        {
           role: "신부 아버지",
-          bank: "카카오뱅크",
+          bank: "농협은행",
           holder: "김제찬",
-          number: "1111-1111-1111-1111",
+          number: "171-12-182924",
         },
         {
           role: "신부 어머니",
           bank: "카카오뱅크",
           holder: "이현순",
-          number: "1111-1111-1111-1111",
+          number: "3333-15-3709898",
         },
       ],
     },

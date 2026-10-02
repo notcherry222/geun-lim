@@ -3,11 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#f6f2ec" />
+    <meta name="theme-color" content="#721819" />
     <title>건, 채림 결혼합니다🩷</title>
     <meta name="description" content="2027.01.09 오후 1시 30분 · 신림 그레이스 파티 7층 그레이스홀" />
 
-    <!-- Open Graph / 카카오·메신저 링크 미리보기 -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="건 &amp; 채림 청첩장" />
     <meta property="og:title" content="건, 채림 결혼합니다❤️" />
@@ -25,104 +24,181 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Great+Vibes&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap" rel="stylesheet" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
     />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css?v=20261002d" />
   </head>
   <body>
     <main id="app">
-      <!-- Hero -->
-      <section class="hero" id="hero" aria-label="메인">
-        <div class="hero__media">
-          <img id="hero-image" class="hero__image" src="" alt="" />
-          <div class="hero__shade" aria-hidden="true"></div>
-        </div>
-        <p class="hero__script" id="hero-script" aria-hidden="true"></p>
-        <div class="hero__center">
-          <p class="hero__names" id="hero-names"></p>
-          <p class="hero__hint">Scroll</p>
-          <span class="hero__hint-line" aria-hidden="true"></span>
-        </div>
+      <!-- 1. 대문사진 -->
+      <section class="cover" id="cover" aria-label="대문사진">
+        <img
+          id="cover-image"
+          class="cover__image"
+          src="assets/design/deco.jpg"
+          alt="건과 채림의 모바일 청첩장 표지"
+        />
+        <div class="cover__placeholder" id="cover-fallback" hidden>대문사진</div>
       </section>
 
-      <!-- Invite -->
-      <section class="section invite" id="invite">
-        <h2 class="section__title" id="invite-heading"></h2>
-        <div id="parents-block"></div>
-        <p class="invite__eyebrow" id="invite-eyebrow"></p>
-        <figure class="invite__photo">
-          <img id="invite-photo" class="invite__photo-img" src="" alt="" />
-        </figure>
-        <div class="invite__body" id="invite-body"></div>
-      </section>
+      <!-- 2. Our Wedding Day -->
+      <section class="block block--dark wedding" id="wedding" aria-label="Our Wedding Day">
+        <p class="heart" aria-hidden="true">♥︎</p>
+        <h1 class="en-title">Our Wedding day</h1>
 
-      <!-- Gallery -->
-      <section class="section gallery" id="gallery">
-        <h2 class="section__title" id="gallery-heading"></h2>
-        <div class="gallery__grid" id="gallery-grid"></div>
-        <button type="button" class="btn btn--ghost" id="gallery-more" hidden>
-          더 보기
-        </button>
-      </section>
-
-      <!-- Ceremony -->
-      <section class="section ceremony" id="ceremony">
-        <h2 class="section__title">예식 안내</h2>
-        <p class="ceremony__datetime" id="ceremony-datetime"></p>
-        <p class="ceremony__venue" id="ceremony-venue"></p>
-        <div class="calendar" id="calendar" aria-label="예식 달력"></div>
-      </section>
-
-      <!-- Location -->
-      <section class="section location" id="location">
-        <h2 class="section__title">오시는 길</h2>
-        <div class="location__card">
-          <p class="location__name" id="location-name"></p>
-          <p class="location__hall" id="location-hall"></p>
-          <p class="location__address" id="location-address"></p>
-          <div class="location__map" id="location-map" aria-label="약도"></div>
-          <div class="location__nav">
-            <button type="button" class="btn btn--nav" data-map="tmap">티맵</button>
-            <button type="button" class="btn btn--nav" data-map="kakao">카카오내비</button>
-            <button type="button" class="btn btn--nav" data-map="naver">네이버지도</button>
+        <figure class="date-card">
+          <img src="assets/design/datetime-frame.png" alt="" />
+          <div class="date-card__text">
+            <p id="date-line"></p>
+            <p id="time-line"></p>
+            <p id="venue-line"></p>
           </div>
+        </figure>
+
+        <div class="parents" id="parents-lines"></div>
+
+        <img class="heart-locket" src="assets/design/heart-frame-cut.png" alt="" />
+
+        <figure class="script">
+          <img src="assets/design/script-paper.png" alt="" />
+          <p class="script__line script__line--1">「물고기는 존재하지 않는다」 中</p>
+          <p class="script__line script__line--2">세상의 냉기를 막아주는</p>
+          <p class="script__line script__line--3">서로의 안식처가 되어주기로 했습니다.</p>
+          <p class="script__line script__line--4">그 약속이 영원이 되는 날,</p>
+          <p class="script__line script__line--5">저희의 증인이 되어주세요.</p>
+        </figure>
+      </section>
+
+      <!-- 3. 장식 이미지 -->
+      <section class="deco" aria-label="장식">
+        <div class="deco__placeholder">장식 이미지</div>
+      </section>
+
+      <!-- 4. Gallery -->
+      <section class="block block--dark gallery" id="gallery" aria-label="Gallery">
+        <p class="heart" aria-hidden="true">♥︎</p>
+        <h2 class="en-title">Gallery</h2>
+        <p class="ko-sub">우리의 순간</p>
+        <div class="stamp-sheet">
+          <div class="stamp-collage" id="gallery-grid"></div>
         </div>
-        <div class="location__transit" id="location-transit"></div>
       </section>
 
-      <!-- Accounts -->
-      <section class="section accounts" id="accounts">
-        <h2 class="section__title" id="accounts-heading"></h2>
-        <div class="accounts__cols" id="accounts-block"></div>
+      <!-- 5. Save the Date -->
+      <section class="block block--light save" id="save" aria-label="Save the Date">
+        <p class="heart" aria-hidden="true">♥︎</p>
+        <h2 class="en-title">Save the Date</h2>
+        <p class="ko-sub">예식 안내</p>
+        <div class="calendar" id="calendar" aria-label="2027년 1월"></div>
+        <p class="save__when" id="save-when"></p>
+        <div class="countdown" id="countdown" aria-live="polite">
+          <div class="tick"><b id="cd-days">00</b><span>Days</span></div>
+          <span class="colon">:</span>
+          <div class="tick"><b id="cd-hours">00</b><span>Hours</span></div>
+          <span class="colon">:</span>
+          <div class="tick"><b id="cd-mins">00</b><span>Min</span></div>
+          <span class="colon">:</span>
+          <div class="tick"><b id="cd-secs">00</b><span>Sec</span></div>
+        </div>
+        <p class="save__left" id="save-left"></p>
       </section>
 
-      <footer class="footer">
-        <p>Gun &amp; Chaelim · 2027.01.09</p>
-      </footer>
+      <!-- 6. Location -->
+      <section class="block block--light location" id="location" aria-label="오시는길">
+        <p class="heart" aria-hidden="true">♥︎</p>
+        <h2 class="en-title">Location</h2>
+        <p class="ko-sub">오시는길</p>
+        <div class="map-frame">
+          <iframe
+            id="map-frame"
+            title="예식장 위치"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+        <div class="map-links" id="map-links"></div>
+        <p class="location__address" id="location-address"></p>
+      </section>
+
+      <!-- 7. Detail -->
+      <section class="block block--dark detail" id="detail" aria-label="안내사항">
+        <p class="heart" aria-hidden="true">♥︎</p>
+        <h2 class="en-title">Detail</h2>
+        <p class="ko-sub">안내사항</p>
+        <div class="carousel" id="carousel">
+          <button type="button" class="carousel__nav carousel__nav--prev" id="carousel-prev" aria-label="이전 안내">
+            ‹
+          </button>
+          <div class="carousel__viewport" id="carousel-viewport">
+            <div class="carousel__track" id="carousel-track">
+              <figure class="slide slide--a"><img src="assets/design/notice-1.png" alt="안내사항 1" /></figure>
+              <figure class="slide slide--b"><img src="assets/design/notice-2.png" alt="안내사항 2" /></figure>
+              <figure class="slide slide--c"><img src="assets/design/notice-3.png" alt="안내사항 3" /></figure>
+              <figure class="slide slide--d"><img src="assets/design/notice-4.png" alt="안내사항 4" /></figure>
+            </div>
+          </div>
+          <button type="button" class="carousel__nav carousel__nav--next" id="carousel-next" aria-label="다음 안내">
+            ›
+          </button>
+        </div>
+        <div class="dots" id="carousel-dots" role="tablist" aria-label="안내 페이지"></div>
+        <div class="contact-buttons">
+          <button type="button" class="contact-buttons__item" data-contact-side="groom">
+            신랑측 연락하기
+          </button>
+          <button type="button" class="contact-buttons__item" data-contact-side="bride">
+            신부측 연락하기
+          </button>
+        </div>
+      </section>
+
+      <!-- 8. Gift -->
+      <section class="block block--light gift" id="gift" aria-label="마음 전하실 곳">
+        <p class="heart" aria-hidden="true">♥︎</p>
+        <h2 class="en-title">Gift</h2>
+        <p class="ko-sub">마음 전하실 곳</p>
+        <div class="accounts" id="accounts-block"></div>
+        <p class="gift__note">
+          참석이 어려우신 분들을 위해<br />조심스럽게 안내드립니다.
+        </p>
+        <p class="gift__note">보내주시는 따뜻한 마음,<br />감사히 간직하겠습니다.</p>
+      </section>
+
+      <!-- 9. 감사 인사 -->
+      <section class="block block--dark thanks" aria-label="감사 인사">
+        <p>
+          저희 두 사람의 새로운 시작을<br />
+          따뜻한 마음으로 축복해 주시면<br />
+          감사하겠습니다.
+        </p>
+        <p>행복하게 잘 살겠습니다.</p>
+        <p class="thanks__sign">신랑 · 신부 올림</p>
+      </section>
     </main>
 
-    <!-- Gallery lightbox -->
-    <div class="lightbox" id="lightbox" hidden>
-      <div class="lightbox__backdrop" data-close="lightbox"></div>
-      <button type="button" class="lightbox__nav lightbox__nav--prev" id="lightbox-prev" aria-label="이전">
-        ‹
-      </button>
-      <img class="lightbox__image" id="lightbox-image" src="" alt="" />
-      <button type="button" class="lightbox__nav lightbox__nav--next" id="lightbox-next" aria-label="다음">
-        ›
-      </button>
-      <button type="button" class="lightbox__close" data-close="lightbox" aria-label="닫기">×</button>
+    <div class="contact-modal" id="contact-modal" hidden>
+      <button type="button" class="contact-modal__backdrop" data-contact-close aria-label="닫기"></button>
+      <div class="contact-modal__panel" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
+        <button type="button" class="contact-modal__close" data-contact-close aria-label="닫기">×</button>
+        <h2 class="contact-modal__title" id="contact-modal-title"></h2>
+        <div class="contact-modal__body" id="contact-modal-body"></div>
+      </div>
+    </div>
+
+    <div class="viewer" id="lightbox" hidden>
+      <button type="button" class="viewer__close" id="lightbox-close" aria-label="닫기">×</button>
+      <button type="button" class="viewer__nav viewer__nav--prev" id="lightbox-prev" aria-label="이전">‹</button>
+      <img class="viewer__image" id="lightbox-image" alt="" />
+      <button type="button" class="viewer__nav viewer__nav--next" id="lightbox-next" aria-label="다음">›</button>
+      <div class="viewer__thumbs" id="lightbox-thumbs"></div>
     </div>
 
     <div class="toast" id="toast" hidden role="status"></div>
 
-    <script src="js/data.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/data.js?v=20261002b"></script>
+    <script src="js/app.js?v=20261002c"></script>
   </body>
 </html>
