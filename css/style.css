@@ -101,6 +101,12 @@ a {
   background: var(--paper);
 }
 
+.cover__picture,
+.date-card picture,
+.heart-locket {
+  display: block;
+}
+
 .cover__image {
   width: 100%;
   height: auto;
@@ -143,6 +149,11 @@ a {
 .heart-locket {
   width: min(88%, 360px);
   margin: 1.8rem auto 0.4rem;
+}
+
+.heart-locket img {
+  width: 100%;
+  height: auto;
 }
 
 .script {

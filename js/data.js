@@ -28,20 +28,8 @@ window.WEDDING_DATA = {
     ],
   },
 
-  /** 히어로·갤러리 등 이미지는 src만 교체 */
+  /** 갤러리 이미지는 src만 교체 */
   images: {
-    hero: {
-      src: "assets/images/lithuania.jpg",
-      alt: "리투아니아 카우나스 풍경",
-    },
-    story: {
-      src: "assets/images/story.jpg",
-      alt: "함께한 여행의 추억",
-    },
-    locationMap: {
-      src: "assets/images/location-map.png",
-      alt: "그레이스파티 신림 약도",
-    },
     gallery: [
       { src: "assets/images/gallery/08.jpg", alt: "갤러리 사진 8" },
       { src: "assets/images/gallery/09.jpg", alt: "갤러리 사진 9" },
@@ -53,7 +41,7 @@ window.WEDDING_DATA = {
       { src: "assets/images/gallery/25.jpg", alt: "갤러리 사진 25" },
       { src: "assets/images/gallery/13.jpg", alt: "갤러리 사진 13" },
       { src: "assets/images/gallery/01.jpg", alt: "갤러리 사진 1" },
-      { src: "assets/images/gallery/03.jpg?v=20261003", alt: "갤러리 사진 3" },
+      { src: "assets/images/gallery/03.jpg", alt: "갤러리 사진 3" },
       { src: "assets/images/gallery/05.jpg", alt: "갤러리 사진 5" },
       { src: "assets/images/gallery/06.jpg", alt: "갤러리 사진 6" },
       { src: "assets/images/gallery/23.jpg", alt: "갤러리 사진 23" },

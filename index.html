@@ -29,18 +29,23 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
     />
-    <link rel="stylesheet" href="css/style.css?v=20261003j" />
+    <link rel="stylesheet" href="css/style.css?v=20261003k" />
   </head>
   <body>
     <main id="app">
       <!-- 1. 대문사진 -->
       <section class="cover" id="cover" aria-label="대문사진">
-        <img
-          id="cover-image"
-          class="cover__image"
-          src="assets/design/cover.png?v=20261003"
-          alt="건과 채림의 모바일 청첩장 표지"
-        />
+        <picture class="cover__picture">
+          <source srcset="assets/design/cover.webp?v=20261003" type="image/webp" />
+          <img
+            id="cover-image"
+            class="cover__image"
+            src="assets/design/cover.png?v=20261003"
+            alt="건과 채림의 모바일 청첩장 표지"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </picture>
         <div class="cover__placeholder" id="cover-fallback" hidden>대문사진</div>
       </section>
 
@@ -50,17 +55,29 @@
         <h1 class="en-title">Our Wedding day</h1>
 
         <figure class="date-card">
-          <img src="assets/design/datetime-frame.png?v=20261003" alt="" />
+          <picture>
+            <source srcset="assets/design/datetime-frame.webp?v=20261003" type="image/webp" />
+            <img src="assets/design/datetime-frame.png?v=20261003" alt="" loading="lazy" decoding="async" />
+          </picture>
         </figure>
 
         <div class="parents" id="parents-lines"></div>
 
-        <img class="heart-locket" src="assets/design/heart-frame-cut.png?v=20261003" alt="" />
+        <picture class="heart-locket">
+          <source srcset="assets/design/heart-frame-cut.webp?v=20261003" type="image/webp" />
+          <img src="assets/design/heart-frame-cut.png?v=20261003" alt="" loading="lazy" decoding="async" />
+        </picture>
 
         <figure class="script">
           <picture class="script__paper-picture">
             <source srcset="assets/design/script-paper.webp?v=20261003" type="image/webp" />
-            <img class="script__paper" src="assets/design/script-paper.png?v=20261003b" alt="" decoding="async" />
+            <img
+              class="script__paper"
+              src="assets/design/script-paper.png?v=20261003b"
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
           </picture>
           <picture class="script__writing">
             <source srcset="assets/design/script-writing.webp?v=20261003" type="image/webp" />
@@ -68,6 +85,7 @@
               class="script__writing-image"
               src="assets/design/script-writing.png?v=20261003b"
               alt="낯선 도시 카우나스에서 시작된 저희의 인연이 서로를 아끼고 존중하며 함께 걸어가려 합니다. 두 사람의 첫걸음을 축복해 주시면 감사하겠습니다."
+              loading="lazy"
               decoding="async"
             />
           </picture>
@@ -158,7 +176,7 @@
 
     <div class="toast" id="toast" hidden role="status"></div>
 
-    <script src="js/data.js?v=20261003c"></script>
-    <script src="js/app.js?v=20261003i"></script>
+    <script src="js/data.js?v=20261003d"></script>
+    <script src="js/app.js?v=20261003j"></script>
   </body>
 </html>

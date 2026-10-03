@@ -9,6 +9,15 @@
   const $ = (sel, root = document) => root.querySelector(sel);
   const photos = data.images.gallery || [];
   let viewerIndex = 0;
+  let thumbsRendered = false;
+  const assetVersion = "20261003opt";
+
+  const withoutQuery = (src) => src.split("?")[0];
+  const versionedSrc = (src) => `${withoutQuery(src)}?v=${assetVersion}`;
+  const thumbnailSrc = (src) => {
+    const cleanSrc = withoutQuery(src);
+    return `${cleanSrc.replace("/gallery/", "/gallery/thumbs/")}?v=${assetVersion}`;
+  };
 
   function showToast(message) {
     const el = $("#toast");
@@ -115,7 +124,7 @@
       .map(
         (item, index) => `
         <button type="button" class="stamp" data-index="${index}" style="transform:rotate(${tilts[index % tilts.length]}deg)" aria-label="${item.alt}">
-          <img src="${item.src}" alt="${item.alt}" loading="lazy" />
+          <img src="${thumbnailSrc(item.src)}" alt="${item.alt}" loading="lazy" decoding="async" />
         </button>`
       )
       .join("");
@@ -138,12 +147,14 @@
   }
 
   function renderThumbs() {
+    if (thumbsRendered) return;
+    thumbsRendered = true;
     const box = $("#lightbox-thumbs");
     box.innerHTML = photos
       .map(
         (item, index) => `
         <button type="button" data-thumb="${index}" aria-label="${item.alt}">
-          <img src="${item.src}" alt="" />
+          <img src="${thumbnailSrc(item.src)}" alt="" loading="lazy" decoding="async" />
         </button>`
       )
       .join("");
@@ -161,7 +172,7 @@
     image.style.transform = "";
     image.style.transformOrigin = "";
     image.style.transition = "";
-    image.src = item.src;
+    image.src = versionedSrc(item.src);
     image.alt = item.alt;
     $("#lightbox-thumbs").querySelectorAll("button").forEach((btn, i) => {
       btn.classList.toggle("is-on", i === viewerIndex);
@@ -173,6 +184,7 @@
     const box = $("#lightbox");
     box.hidden = false;
     document.body.classList.add("is-locked");
+    renderThumbs();
     showViewer(index);
   }
 
@@ -438,7 +450,6 @@
     renderWedding();
     revealWriting();
     renderGallery();
-    renderThumbs();
     bindViewer();
     renderCalendar();
     renderCountdown();
