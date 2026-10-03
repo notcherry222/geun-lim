@@ -9,7 +9,6 @@
   const $ = (sel, root = document) => root.querySelector(sel);
   const photos = data.images.gallery || [];
   let viewerIndex = 0;
-  let slideIndex = 0;
 
   function showToast(message) {
     const el = $("#toast");
@@ -22,11 +21,18 @@
     }, 1600);
   }
 
-  async function copyText(text) {
+  async function copyText(text, successMessage = "계좌번호가 복사되었습니다") {
     try {
+      let copied = false;
       if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(text);
-      } else {
+        try {
+          await navigator.clipboard.writeText(text);
+          copied = true;
+        } catch {
+          copied = false;
+        }
+      }
+      if (!copied) {
         const ta = document.createElement("textarea");
         ta.value = text;
         ta.setAttribute("readonly", "");
@@ -34,10 +40,11 @@
         ta.style.left = "-9999px";
         document.body.appendChild(ta);
         ta.select();
-        document.execCommand("copy");
+        copied = document.execCommand("copy");
         document.body.removeChild(ta);
       }
-      showToast("계좌번호가 복사되었습니다");
+      if (!copied) throw new Error("Copy failed");
+      showToast(successMessage);
     } catch (err) {
       showToast("복사에 실패했습니다");
     }
@@ -62,17 +69,43 @@
   }
 
   function renderWedding() {
-    const c = data.ceremony;
     const g = data.parents.groomSide;
     const b = data.parents.brideSide;
-    const [year, month, day] = c.dateISO.split("-").map(Number);
-    $("#date-line").textContent = `${year}년 ${month}월 ${day}일 ${c.weekdayLabel}`;
-    $("#time-line").textContent = c.timeLabel;
-    $("#venue-line").innerHTML = `${c.venueName}<br />${c.venueHall}`;
     $("#parents-lines").innerHTML = `
       <p>${g.father.name} 부 · ${g.mother.name} 모의 아들 ${g.childName}</p>
       <p>${b.father.name} 부 · ${b.mother.name} 모의 딸 ${b.childName}</p>
     `;
+  }
+
+  function revealWriting() {
+    const script = $(".script");
+    const writing = $(".script__writing-image");
+    if (!script) return;
+
+    async function reveal() {
+      if (writing?.decode) {
+        try {
+          await writing.decode();
+        } catch {
+          // PNG fallback can still be displayed if decoding the preferred source fails.
+        }
+      }
+      script.classList.add("is-visible");
+    }
+
+    if (!("IntersectionObserver" in window)) {
+      reveal();
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0].isIntersecting) return;
+        reveal();
+        observer.disconnect();
+      },
+      { threshold: 0.45 }
+    );
+    observer.observe(script);
   }
 
   function renderGallery() {
@@ -125,6 +158,9 @@
     viewerIndex = (index + photos.length) % photos.length;
     const item = photos[viewerIndex];
     const image = $("#lightbox-image");
+    image.style.transform = "";
+    image.style.transformOrigin = "";
+    image.style.transition = "";
     image.src = item.src;
     image.alt = item.alt;
     $("#lightbox-thumbs").querySelectorAll("button").forEach((btn, i) => {
@@ -154,15 +190,110 @@
     });
 
     let startX = 0;
+    let pinchStartDistance = 0;
+    let pinchActive = false;
+    let pinchGesture = false;
     const image = $("#lightbox-image");
+
+    const touchDistance = (touches) => {
+      const dx = touches[0].clientX - touches[1].clientX;
+      const dy = touches[0].clientY - touches[1].clientY;
+      return Math.hypot(dx, dy);
+    };
+
+    const resetZoom = () => {
+      image.classList.remove("is-mouse-zooming");
+      image.style.transition = "transform 180ms ease";
+      image.style.transform = "scale(1)";
+      image.addEventListener(
+        "transitionend",
+        () => {
+          image.style.transition = "";
+          image.style.transformOrigin = "";
+        },
+        { once: true }
+      );
+    };
+
     image.addEventListener("touchstart", (event) => {
-      startX = event.changedTouches[0].clientX;
-    }, { passive: true });
+      if (event.touches.length === 2) {
+        const rect = image.getBoundingClientRect();
+        const centerX = (event.touches[0].clientX + event.touches[1].clientX) / 2 - rect.left;
+        const centerY = (event.touches[0].clientY + event.touches[1].clientY) / 2 - rect.top;
+        pinchStartDistance = touchDistance(event.touches);
+        pinchActive = true;
+        pinchGesture = true;
+        image.style.transition = "none";
+        image.style.transformOrigin = `${centerX}px ${centerY}px`;
+        event.preventDefault();
+        return;
+      }
+      if (!pinchGesture) startX = event.touches[0].clientX;
+    }, { passive: false });
+
+    image.addEventListener("touchmove", (event) => {
+      if (!pinchActive || event.touches.length !== 2) return;
+      event.preventDefault();
+      const scale = Math.min(3, Math.max(1, touchDistance(event.touches) / pinchStartDistance));
+      image.style.transform = `scale(${scale})`;
+    }, { passive: false });
+
     image.addEventListener("touchend", (event) => {
+      if (pinchGesture) {
+        if (pinchActive && event.touches.length < 2) {
+          pinchActive = false;
+          resetZoom();
+        }
+        if (event.touches.length === 0) pinchGesture = false;
+        return;
+      }
       const dx = event.changedTouches[0].clientX - startX;
       if (Math.abs(dx) < 40) return;
       showViewer(viewerIndex + (dx < 0 ? 1 : -1));
     }, { passive: true });
+
+    image.addEventListener("touchcancel", () => {
+      if (pinchActive) resetZoom();
+      pinchActive = false;
+      pinchGesture = false;
+    }, { passive: true });
+
+    let mouseZoomActive = false;
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+
+    const setMouseOrigin = (event) => {
+      const rect = image.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width) * 100;
+      const y = ((event.clientY - rect.top) / rect.height) * 100;
+      image.style.transformOrigin = `${Math.min(100, Math.max(0, x))}% ${Math.min(100, Math.max(0, y))}%`;
+    };
+
+    image.addEventListener("mousedown", (event) => {
+      if (!finePointer.matches || event.button !== 0) return;
+      mouseZoomActive = true;
+      setMouseOrigin(event);
+      image.classList.add("is-mouse-zooming");
+      image.style.transition = "transform 140ms ease";
+      image.style.transform = "scale(2)";
+      event.preventDefault();
+    });
+
+    image.addEventListener("mousemove", (event) => {
+      if (!mouseZoomActive) return;
+      setMouseOrigin(event);
+    });
+
+    window.addEventListener("mouseup", () => {
+      if (!mouseZoomActive) return;
+      mouseZoomActive = false;
+      resetZoom();
+    });
+
+    window.addEventListener("blur", () => {
+      if (!mouseZoomActive) return;
+      mouseZoomActive = false;
+      resetZoom();
+    });
 
     document.addEventListener("keydown", (event) => {
       if ($("#lightbox").hidden) return;
@@ -229,27 +360,46 @@
       <a href="${links.kakao}" target="_blank" rel="noopener">카카오맵</a>
     `;
     $("#location-address").innerHTML = `${c.addressLines[0]}<br />${c.venueName} ${c.venueHall}`;
+    const transport = data.transport;
+    $("#transport-guide").innerHTML = `
+      <section class="transport-guide__item">
+        <h3>지하철 · 셔틀</h3>
+        <p>${transport.subway.note}</p>
+      </section>
+      <section class="transport-guide__item">
+        <h3>${transport.bus.title}</h3>
+        <p>${transport.bus.lines.join("<br />")}</p>
+        <p class="transport-guide__note">${transport.bus.note}</p>
+      </section>
+      <section class="transport-guide__item">
+        <h3>${transport.car.title} · 주차</h3>
+        <p>${transport.car.notes.join("<br />")}</p>
+      </section>
+    `;
   }
 
   function renderAccounts() {
     const sides = [
-      ["신랑측 계좌번호", data.accounts.groomSide],
-      ["신부측 계좌번호", data.accounts.brideSide],
+      ["신랑측", data.accounts.groomSide],
+      ["신부측", data.accounts.brideSide],
     ];
     $("#accounts-block").innerHTML = sides
       .map(([label, side], index) => {
         const rows = side.items
-          .map(
-            (item) => `
+          .map((item) => {
+            const phoneLink = item.phone
+              ? `<a class="account__phone" href="tel:${item.phone.replace(/[^\d+]/g, "")}">♥ ${item.phone}</a>`
+              : "";
+            return `
             <div class="account">
               <div>
-                <p class="account__role">${item.role}</p>
-                <p class="account__bank">${item.bank} · ${item.holder}</p>
-                <p class="account__number">${item.number}</p>
+                <p class="account__role">${item.role} · ${item.holder}</p>
+                <p class="account__number">♥ ${item.number} ${item.bank}</p>
+                ${phoneLink}
               </div>
               <button type="button" class="account__copy" data-copy="${item.number}">복사</button>
-            </div>`
-          )
+            </div>`;
+          })
           .join("");
         return `
           <div class="acc">
@@ -275,81 +425,10 @@
     });
   }
 
-  function renderCarousel() {
-    const track = $("#carousel-track");
-    const dots = $("#carousel-dots");
-    const count = track.children.length;
-    dots.innerHTML = Array.from({ length: count }, (_, i) => {
-      return `<button type="button" data-dot="${i}" aria-label="${i + 1}번 안내"></button>`;
-    }).join("");
-
-    function go(index) {
-      slideIndex = (index + count) % count;
-      track.style.transform = `translateX(-${slideIndex * 100}%)`;
-      dots.querySelectorAll("button").forEach((btn, i) => {
-        btn.classList.toggle("is-on", i === slideIndex);
-      });
-    }
-
-    $("#carousel-prev").addEventListener("click", () => go(slideIndex - 1));
-    $("#carousel-next").addEventListener("click", () => go(slideIndex + 1));
-    dots.addEventListener("click", (event) => {
-      const btn = event.target.closest("[data-dot]");
-      if (!btn) return;
-      go(Number(btn.dataset.dot));
-    });
-
-    let startX = 0;
-    const viewport = $("#carousel-viewport");
-    viewport.addEventListener("touchstart", (event) => {
-      startX = event.changedTouches[0].clientX;
-    }, { passive: true });
-    viewport.addEventListener("touchend", (event) => {
-      const dx = event.changedTouches[0].clientX - startX;
-      if (Math.abs(dx) < 40) return;
-      go(slideIndex + (dx < 0 ? 1 : -1));
-    }, { passive: true });
-
-    go(0);
-  }
-
-  function contactRow(label, name, phone) {
-    if (!phone) return "";
-    const tel = phone.replace(/[^\d+]/g, "");
-    return `
-      <div class="contact-person">
-        <p class="contact-person__name">${label} ${name}</p>
-        <a class="contact-person__action" href="tel:${tel}">전화</a>
-        <a class="contact-person__action" href="sms:${tel}">문자</a>
-      </div>`;
-  }
-
-  function openContact(side) {
-    const isGroom = side === "groom";
-    const modal = $("#contact-modal");
-    const parent = isGroom ? data.parents.groomSide : data.parents.brideSide;
-    const person = isGroom ? data.couple.groom : data.couple.bride;
-    $("#contact-modal-title").textContent = isGroom ? "신랑측 연락하기" : "신부측 연락하기";
-    $("#contact-modal-body").innerHTML = [
-      contactRow(isGroom ? "신랑" : "신부", person.ko, person.phone),
-      contactRow("아버지", parent.father.name, parent.father.phone),
-      contactRow("어머니", parent.mother.name, parent.mother.phone),
-    ].join("");
-    modal.hidden = false;
-    document.body.classList.add("is-locked");
-  }
-
-  function closeContact() {
-    $("#contact-modal").hidden = true;
-    document.body.classList.remove("is-locked");
-  }
-
-  function bindContacts() {
-    document.querySelectorAll("[data-contact-side]").forEach((button) => {
-      button.addEventListener("click", () => openContact(button.dataset.contactSide));
-    });
-    document.querySelectorAll("[data-contact-close]").forEach((button) => {
-      button.addEventListener("click", closeContact);
+  function bindUrlCopy() {
+    $("#copy-url").addEventListener("click", () => {
+      const shareUrl = `${window.location.origin}${window.location.pathname}`;
+      copyText(shareUrl, "청첩장 주소가 복사되었습니다");
     });
   }
 
@@ -357,6 +436,7 @@
     document.title = data.meta.documentTitle;
     renderCover();
     renderWedding();
+    revealWriting();
     renderGallery();
     renderThumbs();
     bindViewer();
@@ -365,8 +445,7 @@
     window.setInterval(renderCountdown, 1000);
     renderLocation();
     renderAccounts();
-    renderCarousel();
-    bindContacts();
+    bindUrlCopy();
   }
 
   if (document.readyState === "loading") {
